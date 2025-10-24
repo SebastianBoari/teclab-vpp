@@ -1,11 +1,10 @@
 import '@/styles/index.css'
+import SelectGroup from '@/views/SelectGroup'
 
 function App() {
   return (
     <>
-      <h1 className="bg-black text-white p-4 text-center">
-        Hola Mundo
-      </h1>
+      <SelectGroup/>
     </>
   )
 }
