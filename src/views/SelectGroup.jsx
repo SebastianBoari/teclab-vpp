@@ -8,7 +8,7 @@ const SelectGroup = () => {
         <div className='flex flex-col min-h-screen p-6'>
 
             <div className="flex-grow">
-                <Header onBack={true} sticky={true} title={'Selección de grupo'}/>
+                <Header onBack={()=> {console.log('test')}} sticky={true} title={'Selección de grupo'}/>
 
                 <GroupContainer/>
             </div>

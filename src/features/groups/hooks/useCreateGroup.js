@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { createGroup } from '@/features/groups/services/groups.api.js'
 
-export function useCreateGroup() {
+const useCreateGroup = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [createdGroup, setCreatedGroup] = useState(null)
@@ -24,3 +24,5 @@ export function useCreateGroup() {
 
   return { createGroup: handleCreateGroup, createdGroup, loading, error }
 }
+
+export default useCreateGroup

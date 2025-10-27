@@ -3,10 +3,26 @@ import supabase from '@/utils/supabase.js'
 export async function fetchGroups() {
   const { data, error } = await supabase
   .from('groups')
-  .select('*')
-  .order('created_at', { ascending: false })
+  .select(`
+    id,
+    created_at,
+    group_name,
+    category,
+    periods ( name, isActive, start_at, end_at ),
+    capacity,
+    link_meet,
+    link_whapp,
+    link_drive,
+    tutors ( first_name, last_name, email ),
+    schedule,
+    
+    eligible_careers
+
+  `)
+  .order('created_at', { ascending: true })
 
   if (error) throw error
+  
   return data
 }
 
