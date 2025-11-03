@@ -1,13 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router'
+import CountdownBanner from '../components/CountdownBanner.jsx'
 import ScheduleIcon from '@/assets/icons/ScheduleIcon.jsx'
-import CountdownBanner from '@/components/CountdownBanner.jsx'
 import Button from '@/components/Button.jsx'
 
-const Welcome = () => {
-  return (
-    <div className="text-gray-900 dark:text-white">
-      <div className="flex flex-col min-h-screen">
+const WelcomeStep = () => {
+  const navigate = useNavigate()
+  const handleContinue = () => {
+    navigate('/inscripcion/alumno')
+  }
 
+  return (
+    <div className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900">
+      <div className="flex flex-col min-h-screen p-6">
         <CountdownBanner />
 
         <main className="flex-grow flex flex-col items-center justify-center p-6 text-center">
@@ -36,13 +41,12 @@ const Welcome = () => {
           </div>
         </main>
 
-        <footer className="w-full max-w-sm mx-auto p-4">
-          <Button message={'Continuar'}/>
+        <footer className="w-full max-w-sm mx-auto">
+          <Button status={true} message={'Continuar'} onClick={handleContinue}/>
         </footer>
-        
       </div>
     </div>
   )
 }
 
-export default Welcome
+export default WelcomeStep

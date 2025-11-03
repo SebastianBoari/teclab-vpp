@@ -1,4 +1,5 @@
 import React from 'react'
+
 // Properties of table
 // id type uuid
 // created_at type timestamp with time zone

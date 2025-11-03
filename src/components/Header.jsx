@@ -1,5 +1,13 @@
 import React from 'react'
 
+/**
+ * Page header component with optional back button and sticky behavior.
+ *
+ * @param {Object} props
+ * @param {string} props.title - Header title text.
+ * @param {function} [props.onBack] - Function triggered when the back button is clicked.
+ * @param {boolean} [props.sticky=false] - Makes the header stick to the top when true.
+ */
 const Header = ({
   title,
   onBack,
@@ -18,7 +26,7 @@ const Header = ({
         {onBack && (
           <button
             onClick={onBack}
-            className="text-gray-800 dark:text-gray-200"
+            className="text-gray-800 dark:text-gray-200 hover:cursor-pointer"
           >
             <svg
               className="h-6 w-6"

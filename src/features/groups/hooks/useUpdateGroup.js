@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { updateGroup } from '@/features/groups/services/groups.api.js'
+import { updateGroup } from '../services/groups.api.js'
 
 export function useUpdateGroup() {
   const [loading, setLoading] = useState(false)

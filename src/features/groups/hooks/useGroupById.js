@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { fetchGroupById } from '@/features/groups/services/groups.api.js'
+import { getGroupById } from '../services/groups.api.js'
 
 export function useGroupById(id) {
   const [group, setGroup] = useState(null)
@@ -16,10 +16,10 @@ export function useGroupById(id) {
       setError(null)
 
       try {
-        const data = await fetchGroupById(id)
+        const data = await getGroupById(id)
         if (isMounted) setGroup(data)
       } catch (err) {
-        if (isMounted) setError(err.message || 'Error fetching group')
+        if (isMounted) setError(err.message || 'Error fetching group by id')
       } finally {
         if (isMounted) setLoading(false)
       }

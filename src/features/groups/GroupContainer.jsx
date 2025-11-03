@@ -1,6 +1,6 @@
 import React from 'react'
-import { useGroups } from '@/features/groups/hooks/useGroups.js'
-import GroupList from '@/features/groups/components/GroupList.jsx'
+import { useGroups } from './hooks/useGroups.js'
+import GroupList from './components/GroupList.jsx'
 
 const GroupContainer = () => {
   const { groups, loading, error, refetch } = useGroups()

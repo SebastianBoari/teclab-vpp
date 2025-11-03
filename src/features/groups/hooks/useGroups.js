@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { fetchGroups } from '@/features/groups/services/groups.api.js'
+import { getGroups } from '../services/groups.api.js'
 
 export function useGroups() {
   const [groups, setGroups] = useState([])
@@ -14,7 +14,7 @@ export function useGroups() {
       setError(null)
 
       try {
-        const data = await fetchGroups()
+        const data = await getGroups()
         if (isMounted) setGroups(data)
       } catch (err) {
         if (isMounted) setError(err.message || 'Error fetching groups')
@@ -28,5 +28,5 @@ export function useGroups() {
     return () => { isMounted = false }
   }, [])
 
-  return { groups, loading, error, refetch: () => fetchGroups().then(setGroups) }
+  return { groups, loading, error }
 }

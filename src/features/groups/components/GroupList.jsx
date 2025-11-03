@@ -1,5 +1,5 @@
 import React from 'react'
-import GroupItem from '@/features/groups/components/GroupItem.jsx'
+import GroupItem from './GroupItem.jsx'
 
 const GroupList = ({ groups }) => {
   return (

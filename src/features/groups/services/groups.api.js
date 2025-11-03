@@ -1,6 +1,6 @@
 import supabase from '@/utils/supabase.js'
 
-export async function fetchGroups() {
+export async function getGroups() {
   const { data, error } = await supabase
   .from('groups')
   .select(`
@@ -26,7 +26,7 @@ export async function fetchGroups() {
   return data
 }
 
-export async function fetchGroupById(id) {
+export async function getGroupById(id) {
   const { data, error } = await supabase
   .from('groups')
   .select('*')
