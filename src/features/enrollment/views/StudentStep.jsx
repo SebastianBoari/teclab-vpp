@@ -15,9 +15,8 @@ const StudentStep = () => {
     return test
   }
 
-  const checkStudent = () => {
-    // TODO: logica de validacion del id del alumno
-    navigate('/inscripcion/grupos')
+  const checkStudent = (dni) => {
+    navigate(`/inscripcion/grupos/${dni.trim()}`)
   }
   
   const onBack = () => {

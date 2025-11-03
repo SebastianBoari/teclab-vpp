@@ -1,34 +1,12 @@
-import React from 'react'
-
-// Properties of table
-// id type uuid
-// created_at type timestamp with time zone
-// group_name type text
-// category type text
-// period_id type uuid
-// capacity type int2
-// link_meet type text
-// link_whapp type text
-// link_drive type text
-// tutor_id type uuid
-// schedule type jsonb
-// eligible_careers type uuid[]
-
-const Group = ({ group }) => {
-    
+const GroupItem = ({ group }) => {
     const {
         id,
-        created_at,
         group_name,
         category,
         periods,
         capacity,
-        link_meet,
-        link_whapp,
-        link_drive,
         tutors,
         schedule,
-        eligible_careers
     } = group
     
     const formatDate = (isoDate) => {
@@ -85,8 +63,12 @@ const Group = ({ group }) => {
                 <span className="material-symbols-outlined text-base">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.5 3a9.5 9.5 0 0 1 9.5 9.5a9.5 9.5 0 0 1-9.5 9.5A9.5 9.5 0 0 1 2 12.5A9.5 9.5 0 0 1 11.5 3m0 1A8.5 8.5 0 0 0 3 12.5a8.5 8.5 0 0 0 8.5 8.5a8.5 8.5 0 0 0 8.5-8.5A8.5 8.5 0 0 0 11.5 4M11 7h1v5.42l4.7 2.71l-.5.87l-5.2-3z"/></svg>
                 </span>
-
-                <span>{schedule.length > 1 ? schedule[0].day + ' y ' + schedule[1].day : schedule[0].day} de {formatHours(schedule[0].time)}hs</span>
+                
+                {
+                    schedule.length === 0 ? (
+                        <span>Horario no disponible</span>
+                    ) : <span>{schedule.length > 1 ? schedule[0].day + ' y ' + schedule[1].day : schedule[0].day} de {formatHours(schedule[0].time)}hs</span>
+                }
             </div>
 
             <div className="flex items-center gap-2">
@@ -105,4 +87,4 @@ const Group = ({ group }) => {
   )
 }
 
-export default Group
+export default GroupItem

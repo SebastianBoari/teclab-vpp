@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getGroups } from '../services/groups.api.js'
 
-export function useGroups() {
+const useGroups = () => {
   const [groups, setGroups] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -30,3 +30,5 @@ export function useGroups() {
 
   return { groups, loading, error }
 }
+
+export default useGroups

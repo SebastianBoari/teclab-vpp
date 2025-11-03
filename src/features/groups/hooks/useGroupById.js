@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getGroupById } from '../services/groups.api.js'
 
-export function useGroupById(id) {
+const useGroupById = (id) => {
   const [group, setGroup] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -32,3 +32,5 @@ export function useGroupById(id) {
 
   return { group, loading, error }
 }
+
+export default useGroupById

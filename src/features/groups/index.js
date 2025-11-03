@@ -1,3 +1,6 @@
 export { default as GroupContainer } from './GroupContainer.jsx'
 export { default as GroupItem } from './components/GroupItem.jsx'
+export { default as GroupList } from './components/GroupList.jsx'
+export { default as useGroupById } from './hooks/useGroupById.js'
+export { default as useGroups } from './hooks/useGroups.js'
 export * from './services/groups.api.js'

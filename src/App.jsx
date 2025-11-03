@@ -10,7 +10,7 @@ const App = () => {
         <Route path="inscripcion" element={<Enrollment/>}>
           <Route index element={<WelcomeStep />} />
           <Route path="alumno" element={<StudentStep />} />
-          <Route path="grupos" element={<SelectGroupStep />} />
+          <Route path="grupos/:dni" element={<SelectGroupStep />} />
         </Route>
       </Routes>
     </>
