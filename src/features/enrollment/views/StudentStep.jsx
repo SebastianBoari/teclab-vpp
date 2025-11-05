@@ -4,17 +4,18 @@ import Button from '@/components/Button'
 import { useNavigate } from 'react-router'
 
 const StudentStep = () => {
-  let navigate = useNavigate()
-  const [status, setStatus] = useState(false)
   const [dni, setDni] = useState('')
-
+  
+  const [status, setStatus] = useState(false)
   const checkStatus = (value) => {
     const regex = /^\d{7,8}$/
     const test = regex.test(value)
     test ? setStatus(true) : setStatus(false)
     return test
   }
-
+  
+  let navigate = useNavigate()
+  
   const checkStudent = (dni) => {
     navigate(`/inscripcion/grupos/${dni.trim()}`)
   }

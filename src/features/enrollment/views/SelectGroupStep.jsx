@@ -13,22 +13,28 @@ const SelectGroup = () => {
   
   let { dni } = useParams()
 
-  const { student, loading, error } = useStudentByDni(dni)
+  const { data: student, isLoading, error } = useStudentByDni(dni)
   const careerId = student?.career_id
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
-        <div className='flex flex-col min-h-screen p-6'>
-            <div className="flex-grow">
-                <Header onBack={handleBack} sticky={true} title={'Selección de grupo'}/>
-
-                <GroupContainer studentCareerId={careerId}/>
-
-                {loading && (
-                    <h1>Cargando...</h1>
-                  )}
+      <div className='flex flex-col min-h-screen p-6'>
+        <div className="flex-grow">
+          <Header onBack={handleBack} sticky={true} title={'Selección de grupo'}/>
+          
+          <GroupContainer studentCareerId={careerId}/>
+          
+          {isLoading && (
+            <h1>Cargando...</h1>
+          )}
+          
+          {error && (
+            <div className="text-red-500">
+              <h1>Error al cargar los datos del alumno.</h1>
             </div>
+          )}
         </div>
+      </div>
     </div>
   )
 }
