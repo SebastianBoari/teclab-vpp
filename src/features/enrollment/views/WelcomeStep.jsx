@@ -1,8 +1,8 @@
-import React from 'react'
 import { useNavigate } from 'react-router'
+import { usePeriod } from '@/features/periods'
 import CountdownBanner from '../components/CountdownBanner.jsx'
-import ScheduleIcon from '@/assets/icons/ScheduleIcon.jsx'
 import Button from '@/components/Button.jsx'
+import ScheduleIcon from '@/assets/icons/ScheduleIcon.jsx'
 
 const WelcomeStep = () => {
   const navigate = useNavigate()
@@ -10,10 +10,21 @@ const WelcomeStep = () => {
     navigate('/inscripcion/alumno')
   }
 
+  const { period, loading, error } = usePeriod()
+  let daysRemaining = null
+  if(period && !loading && !error){
+    const enrollmentDeadline = new Date(period.enrollment_close_at)
+    const now = new Date()
+    const diffMs = enrollmentDeadline - now
+    daysRemaining = Math.ceil(diffMs / (1000 * 60 * 60 * 24))
+  }
+
   return (
     <div className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col min-h-screen p-6">
-        <CountdownBanner />
+        { period && !loading && !error && (
+          <CountdownBanner daysRemaining={daysRemaining}/>
+        )}
 
         <main className="flex-grow flex flex-col items-center justify-center p-6 text-center">
           <div className="w-full max-w-md">

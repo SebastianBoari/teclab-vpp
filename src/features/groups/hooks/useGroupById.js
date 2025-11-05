@@ -11,7 +11,7 @@ const useGroupById = (id) => {
 
     let isMounted = true
 
-    async function loadGroup() {
+    const loadGroup = async () => {
       setLoading(true)
       setError(null)
 
