@@ -10,9 +10,10 @@ const WelcomeStep = () => {
     navigate('/inscripcion/alumno')
   }
 
-  const { period, loading, error } = usePeriod()
+  const { data: period, isLoading, error } = usePeriod()
+  
   let daysRemaining = null
-  if(period && !loading && !error){
+  if(period && !isLoading && !error){
     const enrollmentDeadline = new Date(period.enrollment_close_at)
     const now = new Date()
     const diffMs = enrollmentDeadline - now
@@ -22,7 +23,7 @@ const WelcomeStep = () => {
   return (
     <div className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col min-h-screen p-6">
-        { period && !loading && !error && (
+        { period && !isLoading && !error && (
           <CountdownBanner daysRemaining={daysRemaining}/>
         )}
 

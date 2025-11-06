@@ -13,26 +13,18 @@ const SelectGroup = () => {
   
   let { dni } = useParams()
 
-  const { data: student, isLoading, error } = useStudentByDni(dni)
+  const { data: student, error } = useStudentByDni(dni)
   const careerId = student?.career_id
-
+  const studentId = student?.id
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
       <div className='flex flex-col min-h-screen p-6'>
         <div className="flex-grow">
           <Header onBack={handleBack} sticky={true} title={'Selección de grupo'}/>
           
-          <GroupContainer studentCareerId={careerId}/>
-          
-          {isLoading && (
-            <h1>Cargando...</h1>
-          )}
-          
-          {error && (
-            <div className="text-red-500">
-              <h1>Error al cargar los datos del alumno.</h1>
-            </div>
-          )}
+          <GroupContainer studentId={studentId} studentCareerId={careerId}/>
+
+          {error && <p className="text-center text-gray-500">Error: vuelva al paso anterior y revise si ha ingresado correctamente el DNI.</p>}
         </div>
       </div>
     </div>

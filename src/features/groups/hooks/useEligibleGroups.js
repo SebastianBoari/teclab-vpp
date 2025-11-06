@@ -9,22 +9,16 @@ const getEligibleGroups = (groups, studentCareer) => {
   })
 }
 
-const getActiveGroups = (groups) => {
-  return groups.filter((group) => {
-    return group.periods?.isActive === true
-  })
-}
-
 const useEligibleGroups = (careerId) => {
-  const { groups, loading, error } = useGroups()
+  const { groups, loading, error } = useGroups(true)
   const [eligibleGroups, setEligibleGroups] = useState([])
 
   useEffect(() => {
     if (loading || error || !Array.isArray(groups)) return
-
-    const active = getActiveGroups(groups)
-    const eligible = getEligibleGroups(active, careerId)
-
+    
+    console.log(groups)
+    const eligible = getEligibleGroups(groups, careerId)
+  
     setEligibleGroups(eligible)
   }, [groups, loading, error, careerId])
 

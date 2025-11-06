@@ -1,4 +1,6 @@
-const GroupItem = ({ group }) => {
+import EnrollmentButton from '@/features/enrollment/components/EnrollmentButton.jsx'
+
+const GroupItem = ({ studentId, group }) => {
     const {
         id,
         group_name,
@@ -80,9 +82,7 @@ const GroupItem = ({ group }) => {
             </div>
         </div>
 
-        <button className="w-full bg-primary text-white font-medium py-2.5 rounded-lg text-sm transition-colors hover:bg-primary/90 mt-2">
-            Seleccionar grupo
-        </button>
+        <EnrollmentButton studentId={studentId} groupId={id}/>
     </div>
   )
 }
