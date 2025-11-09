@@ -1,6 +1,6 @@
 import { Outlet} from 'react-router'
 
-const Enrollment = () => {
+const EnrollmentContainer = () => {
   return (
     <div>
       <Outlet/>
@@ -8,4 +8,4 @@ const Enrollment = () => {
   )
 }
 
-export default Enrollment
+export default EnrollmentContainer

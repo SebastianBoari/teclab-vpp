@@ -1,4 +1,8 @@
 export { default as WelcomeStep } from './views/WelcomeStep.jsx'
 export { default as StudentStep } from './views/StudentStep.jsx'
 export { default as SelectGroupStep } from './views/SelectGroupStep.jsx'
+export { default as EnrollmentConfirmation } from './views/EnrollmentConfirmation.jsx'
+export { default as EnrollmentContainer } from './EnrollmentContainer.jsx'
+export { default as EnrollmentButton } from './components/EnrollmentButton.jsx'
+export { default as CountdownBanner } from './components/CountdownBanner.jsx'
 export * from './services/enrollment.api.js'

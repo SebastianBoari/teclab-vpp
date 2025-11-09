@@ -4,8 +4,8 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import Enrollment from '@/pages/Enrollment.jsx'
-import {WelcomeStep, StudentStep, SelectGroupStep} from '@/features/enrollment'
+import {WelcomeStep, StudentStep, SelectGroupStep, EnrollmentConfirmation, EnrollmentContainer} from '@/features/enrollment'
+import { Toaster } from 'react-hot-toast'
 import '@/styles/index.css'
 
 const queryClient = new QueryClient()
@@ -15,13 +15,17 @@ const App = () => {
     <>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
+        
         <Routes>
-          <Route path="inscripcion" element={<Enrollment/>}>
+          <Route path="inscripcion" element={<EnrollmentContainer/>}>
             <Route index element={<WelcomeStep />} />
             <Route path="alumno" element={<StudentStep />} />
             <Route path="grupos/:dni" element={<SelectGroupStep />} />
+            <Route path="confirmacion" element={<EnrollmentConfirmation />} />
           </Route>
         </Routes>
+
+        <Toaster />
       </QueryClientProvider>
     </>
   )

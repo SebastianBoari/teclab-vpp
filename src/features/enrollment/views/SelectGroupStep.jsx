@@ -16,6 +16,7 @@ const SelectGroup = () => {
   const { data: student, error } = useStudentByDni(dni)
   const careerId = student?.career_id
   const studentId = student?.id
+  
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
       <div className='flex flex-col min-h-screen p-6'>

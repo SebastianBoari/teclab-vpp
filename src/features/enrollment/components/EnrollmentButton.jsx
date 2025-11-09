@@ -1,4 +1,6 @@
+import toast from 'react-hot-toast'
 import { useEnrollment } from '../hooks/useEnrollment.js'
+import { useEffect } from 'react'
 
 const EnrollmentButton = ({ studentId, groupId }) => {
   const { enroll, isLoading, isError, isSuccess } = useEnrollment()
@@ -7,12 +9,21 @@ const EnrollmentButton = ({ studentId, groupId }) => {
     enroll({ studentId: studentId, groupId: groupId })
   }
 
+  const notify = (status, message) => {
+    toast[status](message)
+  }
+
   const getButtonText = () => {
     if (isLoading) return 'Cargando...'
     if (isSuccess) return 'Inscripto!'
     if (isError) return 'Reintentar inscripción'
     return 'Seleccionar grupo'
   }
+
+  useEffect(() => {
+    if(isSuccess) notify('success', 'Inscripción exitosa')
+    if(isError) notify('error', 'Error en la inscripción')
+  }, [isSuccess, isError])
 
   return (
     <>
