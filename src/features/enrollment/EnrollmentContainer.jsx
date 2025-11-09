@@ -1,10 +1,11 @@
 import { Outlet} from 'react-router'
+import { EnrollmentProvider } from './context/EnrollmentProvider.jsx'
 
 const EnrollmentContainer = () => {
   return (
-    <div>
+    <EnrollmentProvider>
       <Outlet/>
-    </div>
+    </EnrollmentProvider>
   )
 }
 

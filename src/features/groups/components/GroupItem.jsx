@@ -2,7 +2,6 @@ import { EnrollmentButton } from '@/features/enrollment'
 
 const GroupItem = ({ studentId, group }) => {
     const {
-        id,
         group_name,
         category,
         periods,
@@ -82,7 +81,7 @@ const GroupItem = ({ studentId, group }) => {
             </div>
         </div>
 
-        <EnrollmentButton studentId={studentId} groupId={id}/>
+        <EnrollmentButton studentId={studentId} group={group}/>
     </div>
   )
 }

@@ -20,7 +20,7 @@ const App = () => {
           <Route path="inscripcion" element={<EnrollmentContainer/>}>
             <Route index element={<WelcomeStep />} />
             <Route path="alumno" element={<StudentStep />} />
-            <Route path="grupos/:dni" element={<SelectGroupStep />} />
+            <Route path="grupos" element={<SelectGroupStep />} />
             <Route path="confirmacion" element={<EnrollmentConfirmation />} />
           </Route>
         </Routes>

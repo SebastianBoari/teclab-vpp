@@ -22,7 +22,7 @@ const WelcomeStep = () => {
 
   return (
     <div className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col min-h-screen p-6">
+      <div className="flex flex-col min-h-screen justify-between p-6">
         { period && !isLoading && !error && (
           <CountdownBanner daysRemaining={daysRemaining}/>
         )}
