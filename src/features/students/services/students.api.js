@@ -9,11 +9,16 @@ export const getStudentByDni = async (dni) => {
         .select('*')
         .eq('dni', dni)
         .single()
-
+        
         if(error) throw error
 
         return data
     } catch (err) {
-        console.log(err)
+        if (err.code === 'PGRST116') {
+            throw new Error(`No se encontró estudiante con el DNI ${dni}.`)
+        }
+        
+        console.error('Error en getStudentByDni (desconocido):', err.message)
+        throw err
     }
 }

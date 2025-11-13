@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useEnrollment } from '../hooks/useEnrollment.js'
 import { useEnrollmentContext } from '../context/useEnrollmentContext.js'
 import { useNavigate } from 'react-router'
-import toast from 'react-hot-toast'
+import { notify } from '@/utils/utils'
 
 const EnrollmentButton = ({ studentId, group }) => {
   const { id: groupId } = group
@@ -13,10 +13,6 @@ const EnrollmentButton = ({ studentId, group }) => {
 
   const handleClick = () => {
     enroll({ studentId: studentId, groupId: groupId })
-  }
-
-  const notify = (status, message) => {
-    toast[status](message)
   }
 
   const getButtonText = () => {

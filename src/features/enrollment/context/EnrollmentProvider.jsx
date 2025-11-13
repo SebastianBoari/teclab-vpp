@@ -2,18 +2,18 @@ import { useState, useMemo } from 'react'
 import { EnrollmentContext } from './enrollment.context'
 
 export const EnrollmentProvider = ({ children }) => {
-  const [dni, setDni] = useState('')
-  const [studentData, setStudentData] = useState(null)
-  const [selectedGroup, setSelectedGroup] = useState(null)
+  const [studentDni, setStudentDni] = useState('')
+  const [studentData, setStudentData] = useState([])
+  const [selectedGroup, setSelectedGroup] = useState([])
 
   const value = useMemo(() => ({
-    dni,
-    setDni,
+    studentDni,
+    setStudentDni,
     studentData,
     setStudentData,
     selectedGroup,
     setSelectedGroup,
-  }), [dni, studentData, selectedGroup])
+  }), [studentDni, studentData, selectedGroup])
 
   return (
     <EnrollmentContext.Provider value={value}>
