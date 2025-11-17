@@ -1,24 +1,14 @@
+import Button from '@/shared/ui/Button'
 import { useState } from 'react'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Login attempt:', { email, password })
-  }
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50 dark:bg-gray-900">
       <div className="w-full max-w-md mx-auto">
-        <header className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
-            Acceso de Administrador
-          </h1>
-        </header>
-
-        <main className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md space-y-6">
+        <form className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md space-y-6">
           <div className="space-y-4">
             <div>
               <label className="sr-only" htmlFor="email">
@@ -78,14 +68,9 @@ const Login = () => {
               </div>
             </div>
 
-            <button
-              onClick={handleSubmit}
-              className="w-full bg-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-900 transition-colors duration-300"
-            >
-              Iniciar sesión
-            </button>
+            <Button message={'Iniciar sesión'}/>
           </div>
-        </main>
+        </form>
       </div>
     </div>
   )

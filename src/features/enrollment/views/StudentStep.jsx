@@ -63,7 +63,7 @@ const StudentStep = () => {
     navigate, 
     isStudentSuccess
   ])
-
+  
   return (
     <>
       <Header onBack={prevStep}/>
@@ -95,7 +95,7 @@ const StudentStep = () => {
 
       <footer className="w-full max-w-sm mx-auto">
         <Button 
-          disabled={!isDniValid} 
+          disabled={!isDniValid || isStudentLoading} 
           message={'Continuar'} 
           type={'submit'} 
           form={'dni-form'}
