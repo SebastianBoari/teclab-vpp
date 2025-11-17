@@ -14,16 +14,25 @@ const WelcomeStep = () => {
   }
 
   let daysRemaining = null
+  
   if(activePeriod){
-    const enrollmentDeadline = new Date(activePeriod.enrollment_close_at)
     const now = new Date()
-    const diffMs = enrollmentDeadline - now
-    daysRemaining = Math.ceil(diffMs / (1000 * 60 * 60 * 24))
+    const closeDate = new Date(activePeriod.enrollment_close_at)
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    const closeDateStart = new Date(closeDate.getFullYear(), closeDate.getMonth(), closeDate.getDate())
+    const diffTime = closeDateStart - todayStart
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+    if (diffDays === 0) {
+      daysRemaining = now < closeDate ? 0 : -1
+    } else {
+      daysRemaining = diffDays
+    }
   }
 
   return (
     <>
-      {activePeriod && (
+      {activePeriod && daysRemaining !== null &&(
         <CountdownBanner daysRemaining={daysRemaining}/>
       )}
 

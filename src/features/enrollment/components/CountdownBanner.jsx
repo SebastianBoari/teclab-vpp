@@ -1,6 +1,4 @@
 const CountdownBanner = ({ daysRemaining }) => {
-  const plural = daysRemaining === 1 ? 'día' : 'días'
-  
   if(daysRemaining == 0){
     return (
       <header className='bg-primary/10 dark:bg-primary/20 w-full absolute top-0 left-0'>
@@ -10,7 +8,18 @@ const CountdownBanner = ({ daysRemaining }) => {
       </header>
     )
   }
-
+  
+  if(daysRemaining < 0){
+    return (
+      <header className='bg-red-500 w-full absolute top-0 left-0'>
+          <div className='container mx-auto px-4 py-2'>
+              <p className='text-center text-sm font-medium text-white'>La inscripción está cerrada.</p>
+          </div>
+      </header>
+    )
+  }
+  
+  const plural = daysRemaining === 1 ? 'día' : 'días'
   return (  
     <header className='bg-primary/10 dark:bg-primary/20 w-full absolute top-0 left-0'>
         <div className='container mx-auto px-4 py-2'>
