@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { EnrollmentContext } from './enrollment.context'
 import { usePeriod } from '@/features/periods'
 import Spinner from '@/shared/ui/Spinner'
+import { notify } from '@/utils/utils'
 
 export const EnrollmentProvider = ({ children }) => {
   const [studentDni, setStudentDni] = useState('')
@@ -32,14 +33,7 @@ export const EnrollmentProvider = ({ children }) => {
     )
   }
 
-  if (periodError) {
-    return (
-      <div className="flex min-h-screen items-center justify-center p-4">
-        <h1 className="text-red-500">Error</h1>
-        <h3 className="text-red-500">Ha ocurrido un problema que bloquea el correcto funcionamiento de la aplicación.</h3>
-      </div>
-    )
-  }
+  if (periodError) notify('error', periodError.message || 'Ha ocurrido un error inesperado.')
 
   return (
     <EnrollmentContext.Provider value={value}>

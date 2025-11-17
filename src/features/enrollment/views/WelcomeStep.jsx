@@ -3,33 +3,19 @@ import CountdownBanner from '../components/CountdownBanner'
 import Button from '@/shared/ui/Button'
 import ScheduleIcon from '@/assets/icons/ScheduleIcon'
 import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
+import { getDaysRemaining } from '@/utils/utils'
 
 const WelcomeStep = () => {
   const { activePeriod } = useEnrollmentContext()
-
+  
   const navigate = useNavigate()
 
   const handleContinue = () => {
     navigate('/inscripcion/alumno')
   }
 
-  let daysRemaining = null
+  const daysRemaining = activePeriod?.enrollment_close_at ? getDaysRemaining(activePeriod?.enrollment_close_at) : null
   
-  if(activePeriod){
-    const now = new Date()
-    const closeDate = new Date(activePeriod.enrollment_close_at)
-    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    const closeDateStart = new Date(closeDate.getFullYear(), closeDate.getMonth(), closeDate.getDate())
-    const diffTime = closeDateStart - todayStart
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-
-    if (diffDays === 0) {
-      daysRemaining = now < closeDate ? 0 : -1
-    } else {
-      daysRemaining = diffDays
-    }
-  }
-
   return (
     <>
       {activePeriod && daysRemaining !== null &&(

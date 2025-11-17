@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import {WelcomeStep, StudentStep, SelectGroupStep, EnrollmentConfirmation, EnrollmentContainer} from '@/features/enrollment'
 import { AdminContainer, AdminPanel } from '@/features/admin'
 import { Login } from '@/features/auth'
-import NotFoundPage from '@/shared/views/NotFoundPage'
+import NotFoundPage from '@/shared/pages/NotFoundPage'
 import { Toaster } from 'react-hot-toast'
 import '@/styles/index.css'
 
