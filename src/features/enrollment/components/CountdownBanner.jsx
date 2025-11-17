@@ -1,5 +1,3 @@
-import React from 'react'
-
 const CountdownBanner = ({ daysRemaining }) => {
   const plural = daysRemaining === 1 ? 'día' : 'días'
   

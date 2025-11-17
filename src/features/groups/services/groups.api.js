@@ -1,4 +1,4 @@
-import supabase from '@/utils/supabase.js'
+import supabase from '@/shared/lib/supabase'
 
 export const getGroups = async (isActive = null) => {
   try {

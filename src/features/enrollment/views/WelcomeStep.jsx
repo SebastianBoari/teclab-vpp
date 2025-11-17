@@ -1,21 +1,21 @@
 import { useNavigate } from 'react-router'
-import { usePeriod } from '@/features/periods'
 import CountdownBanner from '../components/CountdownBanner'
-import Button from '@/components/Button'
+import Button from '@/shared/ui/Button'
 import ScheduleIcon from '@/assets/icons/ScheduleIcon'
+import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
 
 const WelcomeStep = () => {
+  const { activePeriod } = useEnrollmentContext()
+
   const navigate = useNavigate()
 
   const handleContinue = () => {
     navigate('/inscripcion/alumno')
   }
 
-  const { data: period, isLoading, error } = usePeriod()
-  
   let daysRemaining = null
-  if(period && !isLoading && !error){
-    const enrollmentDeadline = new Date(period.enrollment_close_at)
+  if(activePeriod){
+    const enrollmentDeadline = new Date(activePeriod.enrollment_close_at)
     const now = new Date()
     const diffMs = enrollmentDeadline - now
     daysRemaining = Math.ceil(diffMs / (1000 * 60 * 60 * 24))
@@ -23,7 +23,7 @@ const WelcomeStep = () => {
 
   return (
     <>
-      { period && !isLoading && !error && (
+      {activePeriod && (
         <CountdownBanner daysRemaining={daysRemaining}/>
       )}
 

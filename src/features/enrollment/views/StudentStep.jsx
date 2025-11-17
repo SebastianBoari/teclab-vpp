@@ -1,31 +1,68 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import Header from '@/components/Header'
-import Button from '@/components/Button'
-import { useEnrollmentContext } from '../context/useEnrollmentContext'
+import Header from '@/shared/layout/Header'
+import Button from '@/shared/ui/Button'
+import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
+import { useStudentByDni } from '@/features/students'
+import { useEffect } from 'react'
+import { notify } from '@/utils/utils'
+import Spinner from '@/shared/ui/Spinner'
 
 const DNI_REGEX = /^\d{7,8}$/
 
 const StudentStep = () => {
+  const navigate = useNavigate()
   const [dni, setDni] = useState('')
   const isDniValid = DNI_REGEX.test(dni)
-  const { setStudentDni } = useEnrollmentContext()
-  const navigate = useNavigate()
+
+  const { studentDni, setStudentDni, setStudentData } = useEnrollmentContext()
 
   const prevStep = () => {
+    setStudentDni('')
+    setStudentData([])
     navigate('/inscripcion')
-  }
-
-  const nextStep = () => {
-    navigate('/inscripcion/grupos')
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
     if(!isDniValid) return
     setStudentDni(dni)
-    nextStep()
   }
+
+  const { 
+    data: student,
+    error: studentError,
+    isSuccess: isStudentSuccess,
+    isError: isStudentError, 
+    isLoading: isStudentLoading 
+  } = useStudentByDni(studentDni)
+
+  useEffect(() => {
+    if(isStudentError){
+      notify('error', studentError.message || 'Ha ocurrido un error.')
+    }
+
+    if(isStudentLoading){
+      <Spinner/>
+    } 
+
+    if(isStudentSuccess){
+      if(studentDni){
+        setStudentData(student)
+        navigate('/inscripcion/grupos')
+      }
+    }
+  },[
+    student, 
+    studentDni, 
+    setStudentDni, 
+    setStudentData, 
+    isStudentError, 
+    isStudentLoading, 
+    studentError, 
+    navigate, 
+    isStudentSuccess
+  ])
 
   return (
     <>
