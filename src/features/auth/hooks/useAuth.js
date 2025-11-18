@@ -29,7 +29,7 @@ export const useSession = () => {
   return useQuery({
     queryKey: ['session'],
     queryFn: getCurrentSession,
-    staleTime: 1000 * 60 * 5, // 5 minutos
+    staleTime: 1000 * 60 * 5, 
   })
 }
 
@@ -37,6 +37,6 @@ export const useUser = () => {
   return useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
-    staleTime: 1000 * 60 * 5, // 5 minutos
+    staleTime: 1000 * 60 * 5,
   })
 }
