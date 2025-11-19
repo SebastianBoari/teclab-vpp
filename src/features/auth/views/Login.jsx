@@ -1,11 +1,13 @@
-import Button from '@/shared/ui/Button'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { useLogin } from '../hooks/useAuth'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
+
+import Button from '@/shared/ui/Button'
 import AlertIcon from '@/assets/icons/AlertIcon'
+
+import { useLogin, useSession } from '../hooks/useAuth'
+import { useNavigate } from 'react-router'
 
 const schema = yup.object({
   email: yup
@@ -19,6 +21,9 @@ const schema = yup.object({
 }).required()
 
 const Login = () => {
+  const navigate = useNavigate()
+  const { data: session } = useSession()
+  
   const {
     register,
     handleSubmit,
@@ -30,22 +35,20 @@ const Login = () => {
 
   const { 
     mutate: login, 
-    isLoading: isLoginLoading, 
     isError: isLoginError, 
     error: loginError,
-    isSuccess: isLoginSuccess
+    isPending: isLoginPending
   } = useLogin()
+
+  useEffect(() => {
+    if (session) {
+      // navigate('/admin', { replace: true })
+      console.log('test')
+    }
+  }, [session, navigate])
 
   const onSubmit = (data) => login(data)
   
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if(!isLoginSuccess) return 
-    // TODO: Logica de inicio de sesion (contexto, session, etc)
-    navigate('/admin')
-  }, [isLoginSuccess, navigate])
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50 dark:bg-gray-900 gap-4">
       <div className="w-full max-w-md mx-auto">
@@ -82,6 +85,7 @@ const Login = () => {
                   id="email"
                   placeholder="Correo electrónico"
                   type="email"
+                  disabled={isSubmitting || isLoginPending}
                   {...register('email')}
                 />
               </div>
@@ -119,6 +123,7 @@ const Login = () => {
                   id="password"
                   placeholder="Contraseña"
                   type="password"
+                  disabled={isSubmitting || isLoginPending}
                   {...register('password')}
                 />
               </div>
@@ -147,7 +152,7 @@ const Login = () => {
             <Button 
               message={'Iniciar sesión'} 
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isLoginPending}
             />
           </div>
         </form>

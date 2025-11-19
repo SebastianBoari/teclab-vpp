@@ -8,7 +8,18 @@ import NotFoundPage from '@/shared/pages/NotFoundPage'
 import { Toaster } from 'react-hot-toast'
 import '@/styles/index.css'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+})
 
 const App = () => {
   return (

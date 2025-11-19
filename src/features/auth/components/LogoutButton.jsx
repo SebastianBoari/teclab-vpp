@@ -1,29 +1,28 @@
-import { useNavigate } from 'react-router'
 import { useLogout } from '../hooks/useAuth'
+import Button from '@/shared/ui/Button'
+import { notify } from '@/utils/utils'
 
-const LogoutButton = () => {
-  const navigate = useNavigate()
+const LogoutButton = ({ className = '' }) => {
   const { mutate: logout, isPending } = useLogout()
 
   const handleLogout = () => {
     logout(undefined, {
       onSuccess: () => {
-        navigate('/admin/login', { replace: true })
+        notify('success', 'Sesión cerrada exitosamente')
       },
       onError: (error) => {
-        console.error('Error al cerrar sesión:', error)
+        notify('error', error?.message || 'Error al cerrar sesión')
       }
     })
   }
 
   return (
-    <button 
+    <Button 
+      message={isPending ? 'Cerrando sesión...' : 'Cerrar sesión'}
       onClick={handleLogout}
       disabled={isPending}
-      className="disabled:opacity-50 disabled:cursor-not-allowed"
-    >
-      {isPending ? 'Cerrando sesión...' : 'Cerrar sesión'}
-    </button>
+      className={className}
+    />
   )
 }
 
