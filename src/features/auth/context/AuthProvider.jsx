@@ -1,10 +1,10 @@
 import { useState, useMemo, useEffect } from 'react'
 import { AuthContext } from './auth.context'
 import { useSession, useUser } from '../hooks/useAuth'
-import Spinner from '@/shared/ui/Spinner'
-import { notify } from '@/utils/utils'
+import Spinner from '@components/Spinner'
+import { notify } from '@utils/notify.utils'
 import { useNavigate } from 'react-router'
-import supabase from '@/shared/lib/supabase'
+import supabase from '@common/lib/supabase'
 
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null)

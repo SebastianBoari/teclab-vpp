@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useEnrollment } from '../hooks/useEnrollment.js'
 import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
 import { useNavigate } from 'react-router'
-import { notify } from '@/utils/utils'
+import { notify } from '@utils/notify.utils'
 
 const EnrollmentButton = ({ studentId, group }) => {
   const { setSelectedGroup } = useEnrollmentContext()

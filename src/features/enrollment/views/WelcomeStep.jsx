@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router'
 import CountdownBanner from '../components/CountdownBanner'
-import Button from '@/shared/ui/Button'
-import ScheduleIcon from '@/assets/icons/ScheduleIcon'
+import Button from '@components/Button'
+import ScheduleIcon from '@assets/icons/ScheduleIcon'
 import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
-import { getDaysRemaining } from '@/utils/utils'
+import { getDaysRemaining } from '@utils/date.utils'
 
 const WelcomeStep = () => {
   const { activePeriod } = useEnrollmentContext()

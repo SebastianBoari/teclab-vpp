@@ -1,11 +1,11 @@
-import Header from '@/shared/layout/Header' 
-import Spinner from '@/shared/ui/Spinner'
+import Header from '@common/layout/Header' 
+import Spinner from '@components/Spinner'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { GroupContainer } from '@/features/groups'
 import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
 import { useEnrolledGroup } from '../hooks/useEnrolledGroup'
-import { notify } from '@/utils/utils'
+import { notify } from '@utils/notify.utils'
 
 const SelectGroup = () => {
   const { setStudentDni, studentData, setStudentData, activePeriod, setSelectedGroup } = useEnrollmentContext()

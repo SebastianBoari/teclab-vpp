@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import Header from '@/shared/layout/Header'
-import Button from '@/shared/ui/Button'
+import Header from '@common/layout/Header'
+import Button from '@components/Button'
 import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
 import { useStudentByDni } from '@/features/students'
 import { useEffect } from 'react'
-import { notify } from '@/utils/utils'
-import Spinner from '@/shared/ui/Spinner'
+import { notify } from '@utils/notify.utils'
+import Spinner from '@components/Spinner'
 
 const DNI_REGEX = /^\d{7,8}$/
 

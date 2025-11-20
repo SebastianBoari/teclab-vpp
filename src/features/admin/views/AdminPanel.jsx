@@ -1,4 +1,4 @@
-import Header from '@/shared/layout/Header'
+import Header from '@common/layout/Header'
 const ArrowBackIcon = () => <span>←</span>
 const LockIcon = () => <span>🔒</span>
 

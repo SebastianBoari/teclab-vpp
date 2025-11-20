@@ -1,4 +1,4 @@
-import { EnrollmentButton } from '@/features/enrollment'
+import { EnrollmentButton } from '@features/enrollment'
 
 const GroupItem = ({ studentId, group }) => {
     const {

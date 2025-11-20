@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import Button from '@/shared/ui/Button'
-import AlertIcon from '@/assets/icons/AlertIcon'
+import Button from '@components/Button'
+import AlertIcon from '@assets/icons/AlertIcon'
 
 import { useLogin, useSession } from '../hooks/useAuth'
 import { useNavigate } from 'react-router'

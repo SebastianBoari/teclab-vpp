@@ -1,6 +1,6 @@
 import { useLogout } from '../hooks/useAuth'
-import Button from '@/shared/ui/Button'
-import { notify } from '@/utils/utils'
+import Button from '@components/Button'
+import { notify } from '@utils/notify.utils'
 
 const LogoutButton = ({ className = '' }) => {
   const { mutate: logout, isPending } = useLogout()

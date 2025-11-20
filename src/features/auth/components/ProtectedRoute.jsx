@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router'
 import { useAuthContext } from '../hooks/useAuthContext'
-import Spinner from '@/shared/ui/Spinner'
+import Spinner from '@components/Spinner'
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuthContext()

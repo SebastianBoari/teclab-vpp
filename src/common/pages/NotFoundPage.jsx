@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router'
-import NotFoundIcon from '@/assets/icons/NotFoundIcon'
-import Button from '@/shared/ui/Button'
+import NotFoundIcon from '@assets/icons/NotFoundIcon'
+import Button from '@components/Button'
 
 const NotFoundPage = () => {
   const navigate = useNavigate()

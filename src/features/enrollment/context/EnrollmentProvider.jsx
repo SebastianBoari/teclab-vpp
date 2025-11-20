@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react'
 import { EnrollmentContext } from './enrollment.context'
 import { usePeriod } from '@/features/periods'
-import Spinner from '@/shared/ui/Spinner'
-import { notify } from '@/utils/utils'
+import Spinner from '@components/Spinner'
+import { notify } from '@utils/notify.utils'
 
 export const EnrollmentProvider = ({ children }) => {
   const [studentDni, setStudentDni] = useState('')

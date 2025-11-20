@@ -1,8 +1,8 @@
-import ScheduleIcon from '@/assets/icons/ScheduleIcon'
-import CalendarIcon from '@/assets/icons/CalendarIcon'
-import CheckIcon from '@/assets/icons/CheckIcon'
-import WhatsAppIcon from '@/assets/icons/WhatsAppIcon'
-import VideoCallIcon from '@/assets/icons/VideoCallIcon'
+import ScheduleIcon from '@assets/icons/ScheduleIcon'
+import CalendarIcon from '@assets/icons/CalendarIcon'
+import CheckIcon from '@assets/icons/CheckIcon'
+import WhatsAppIcon from '@assets/icons/WhatsAppIcon'
+import VideoCallIcon from '@assets/icons/VideoCallIcon'
 
 export const GroupDetails = ({ group }) => {
     const { link_whapp, link_meet } = group

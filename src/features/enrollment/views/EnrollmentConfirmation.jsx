@@ -1,6 +1,6 @@
 import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
 import { GroupDetails } from '@/features/groups'
-import Header from '@/shared/layout/Header'
+import Header from '@common/layout/Header'
 import { useNavigate } from 'react-router'
 const EnrollmentConfirmation = () => {
   const { setStudentDni, setStudentData, studentData, selectedGroup } = useEnrollmentContext()

@@ -4,7 +4,6 @@ import useEligibleGroups from './hooks/useEligibleGroups.js'
 const GroupContainer = ({ studentId, studentCareerId }) => {
   const { eligibleGroups, loading, error } = useEligibleGroups(studentCareerId)
 
-  // TODO: Mejorar la vista y la lógica de carga y error
   return (
     <section className="w-full max-w-4xl mx-auto px-4 py-8">
       <GroupList studentId={studentId} groups={eligibleGroups} />
