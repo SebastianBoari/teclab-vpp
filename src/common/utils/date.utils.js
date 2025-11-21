@@ -55,3 +55,61 @@ export const getDaysRemaining = (limitDate) => {
 
     return daysRemaining
 }
+
+/**
+ * Formats an ISO date string to a day/month format.
+ *
+ * Takes a date string in ISO format (YYYY-MM-DD) and converts it to a
+ * human-readable format showing only day and month (DD/MM).
+ *
+ * @param {string} isoDate - The date in ISO format (e.g., '2025-11-17')
+ * @returns {string|undefined} The formatted date as 'DD/MM' or undefined if no date is provided.
+ *
+ * @example
+ * formatDate('2025-11-17')
+ * // Returns: '17/11'
+ *
+ * @example
+ * formatDate('2025-01-05')
+ * // Returns: '05/01'
+ *
+ * @example
+ * formatDate(null)
+ * // Returns: undefined
+ */
+export const formatDate = (isoDate) => {
+    if (!isoDate) return
+
+    const [year, month, day] = isoDate.split('-')
+    
+    return `${day}/${month}`
+}
+
+/**
+ * Formats a time range string into a more readable format.
+ *
+ * Takes a string representing a time range with hours separated by a hyphen
+ * and converts it to a readable format using 'a' (to) as a connector.
+ *
+ * @param {string} hoursString - A time range string in format 'HH:MM-HH:MM' (e.g., '09:00-17:00')
+ * @returns {string|undefined} The formatted time range as 'HH:MM a HH:MM' or undefined if no string is provided.
+ *
+ * @example
+ * formatHours('09:00-17:00')
+ * // Returns: '09:00 a 17:00'
+ *
+ * @example
+ * formatHours('14:30-18:45')
+ * // Returns: '14:30 a 18:45'
+ *
+ * @example
+ * formatHours(null)
+ * // Returns: undefined
+ */
+export const formatHours = (hoursString) => {
+    if (!hoursString) return
+    
+    const [startHour, endHour] = hoursString.split('-')
+
+    return `${startHour} a ${endHour}`
+}

@@ -1,4 +1,5 @@
 import { EnrollmentButton } from '@features/enrollment'
+import { formatDate, formatHours } from '@utils/date.utils'
 
 const GroupItem = ({ studentId, group }) => {
     const {
@@ -10,18 +11,6 @@ const GroupItem = ({ studentId, group }) => {
         schedule,
     } = group
     
-    const formatDate = (isoDate) => {
-        if (!isoDate) return
-        const [year, month, day] = isoDate.split('-')
-        return `${day}/${month}`
-    }
-
-    const formatHours = (hoursString) => {
-        if (!hoursString) return
-        const [startHour, endHour] = hoursString.split('-')
-        return `${startHour} a ${endHour}`
-    }
-
     return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex flex-col gap-4">
         <div className="flex items-start gap-4">
