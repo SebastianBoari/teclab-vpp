@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import useGroups from './useGroups'
+import { GroupsDomain } from '@domain/groups/groups.domain'
 
 const getEligibleGroups = (groups, studentCareer) => {
   return groups.filter((group) => {

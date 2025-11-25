@@ -1,34 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { getGroups } from '../services/groups.api.js'
 
-const useGroups = (isActive) => {
-  const [groups, setGroups] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+const useGroups = (isActive = null) => {
+  const { data: groups, isLoading, error } = useQuery({
+    queryKey: ['groups', true],
+    queryFn: () => getGroups(isActive),
+  })
 
-  useEffect(() => {
-    let isMounted = true
-
-    async function loadGroups() {
-      setLoading(true)
-      setError(null)
-
-      try {
-        const data = await getGroups(isActive)
-        if (isMounted) setGroups(data)
-      } catch (err) {
-        if (isMounted) setError(err.message || 'Error fetching groups')
-      } finally {
-        if (isMounted) setLoading(false)
-      }
-    }
-
-    loadGroups()
-
-    return () => { isMounted = false }
-  }, [])
-
-  return { groups, loading, error }
+    return {
+    groups,
+    loading: isLoading,
+    error
+  }
 }
 
 export default useGroups
