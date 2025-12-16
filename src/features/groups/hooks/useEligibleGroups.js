@@ -1,29 +1,23 @@
-import { useState, useEffect } from 'react'
-import useGroups from './useGroups'
+import { useQuery } from '@tanstack/react-query'
+import { getGroups } from '../services/groups.api'
 import { GroupsDomain } from '@domain/groups/groups.domain'
 
-const getEligibleGroups = (groups, studentCareer) => {
-  return groups.filter((group) => {
-    return group.eligible_careers?.some((career) => {
-      return career === studentCareer
-    })
+const useEligibleGroups = (studentCareerId) => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['groups', true],
+    queryFn: () => getGroups(true),
+    enabled: !!studentCareerId
   })
-}
 
-const useEligibleGroups = (careerId) => {
-  const { groups, loading, error } = useGroups(true)
-  const [eligibleGroups, setEligibleGroups] = useState([])
+  const eligibleGroups = data 
+    ? GroupsDomain.filterEligibleGroups(data, studentCareerId)
+    : []
 
-  useEffect(() => {
-    if (loading || error || !Array.isArray(groups)) return
-    
-    console.log(groups)
-    const eligible = getEligibleGroups(groups, careerId)
-  
-    setEligibleGroups(eligible)
-  }, [groups, loading, error, careerId])
-
-  return { eligibleGroups, loading, error }
+  return {
+    eligibleGroups,
+    loading: isLoading,
+    error
+  }
 }
 
 export default useEligibleGroups
