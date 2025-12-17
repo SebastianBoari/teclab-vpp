@@ -13,6 +13,7 @@ const useEligibleGroups = (studentCareerId) => {
     ? filterEligibleGroups(data, studentCareerId)
     : []
 
+    console.log('Eligible groups:', eligibleGroups)
   return {
     eligibleGroups,
     loading: isLoading,
