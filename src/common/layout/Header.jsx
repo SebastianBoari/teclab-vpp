@@ -1,4 +1,3 @@
-import React from 'react'
 
 /**
  * Page header component with optional back button and sticky behavior.

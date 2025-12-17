@@ -41,10 +41,7 @@ const Login = () => {
   } = useLogin()
 
   useEffect(() => {
-    if (session) {
-      // navigate('/admin', { replace: true })
-      console.log('test')
-    }
+    if (session) navigate('/admin', { replace: true })
   }, [session, navigate])
 
   const onSubmit = (data) => login(data)
@@ -152,7 +149,7 @@ const Login = () => {
             <Button 
               message={'Iniciar sesión'} 
               type="submit"
-              disabled={isSubmitting || isLoginPending}
+              disabled={isLoginPending}
             />
           </div>
         </form>
