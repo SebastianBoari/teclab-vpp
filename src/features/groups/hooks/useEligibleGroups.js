@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getGroups } from '../services/groups.api'
-import { GroupsDomain } from '@domain/groups/groups.domain'
+import { filterEligibleGroups } from '@domain/groups/groups.domain'
 
 const useEligibleGroups = (studentCareerId) => {
   const { data, isLoading, error } = useQuery({
@@ -10,7 +10,7 @@ const useEligibleGroups = (studentCareerId) => {
   })
 
   const eligibleGroups = data 
-    ? GroupsDomain.filterEligibleGroups(data, studentCareerId)
+    ? filterEligibleGroups(data, studentCareerId)
     : []
 
   return {

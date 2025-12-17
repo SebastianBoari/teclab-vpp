@@ -5,7 +5,7 @@ export const getPeriod = async () => {
         const { data, error } = await supabase
         .from('periods')
         .select('*')
-        .eq('isActive', true)
+        .eq('is_active', true)
         .single()
 
         if(error) throw error

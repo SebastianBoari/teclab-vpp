@@ -9,7 +9,7 @@ export const getGroups = async (isActive = null) => {
         created_at,
         group_name,
         category,
-        periods!inner ( name, isActive, start_at, end_at ),
+        periods!inner ( name, is_active, start_at, end_at ),
         period_id,
         capacity,
         link_meet,
@@ -21,16 +21,13 @@ export const getGroups = async (isActive = null) => {
       `)
       .order('created_at', { ascending: true })
 
-    if (isActive !== null) query = query.eq('periods.isActive', isActive)
+    if (isActive !== null) query = query.eq('periods.is_active', isActive)
 
     const { data, error } = await query
 
-    if (error) {
-      throw new Error(error.message)
-    }
-
+    if (error) throw new Error(error.message)
+    
     return data ?? []
-
   } catch (err) {
     // TODO: Quit console.log in production
     console.error('Unexpected error in getGroups:', err)
