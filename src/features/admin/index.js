@@ -1,3 +1,6 @@
 export { default as AdminPanel } from './views/AdminPanel'
 export { default as AdminContainer } from './AdminContainer'
 export { default as GroupList } from './views/GroupList'
+export { default as GroupDetails } from './views/GroupDetails'
+export { default as GroupForm } from './views/GroupForm'
+export { default as Session } from './views/Session'

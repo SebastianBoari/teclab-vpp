@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
 
 import {WelcomeStep, StudentStep, SelectGroupStep, EnrollmentConfirmation, EnrollmentContainer} from '@features/enrollment'
-import { AdminContainer, AdminPanel, GroupList } from '@features/admin'
+import { AdminContainer, AdminPanel, GroupList, GroupDetails, GroupForm, Session } from '@features/admin'
 import { Login } from '@features/auth'
 import NotFoundPage from '@common/pages/NotFoundPage'
 import '@/styles/index.css'
@@ -39,10 +39,10 @@ const App = () => {
               <Route path="admin" element={<AdminContainer/>}>
                 <Route index element={<AdminPanel/>}/>
                 <Route path="grupos" element={<GroupList/>}/>
-                {/* <Route path="grupos/:id" element={<GrupoDetails/>}/>
-                <Route path="crear-grupo" element={<GrupoForm/>}/>
-                <Route path="editar-grupo/:id" element={<GrupoForm/>}/>
-                <Route path="sesiones" element={<SessionsList/>}/> */}
+                <Route path="grupos/:id" element={<GroupDetails/>}/>
+                <Route path="crear-grupo" element={<GroupForm/>}/>
+                <Route path="editar-grupo/:id" element={<GroupForm/>}/>
+                <Route path="sesion" element={<Session/>}/>
               </Route>
               
               <Route path='login' element={<Login/>}/>
