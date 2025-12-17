@@ -1,4 +1,5 @@
 import supabase from '@common/lib/supabase'
+import { adaptGroupsFromAPI } from '@domain/groups/groups.adapters.js'
 
 export const getGroups = async (isActive = null) => {
   try {
@@ -15,7 +16,7 @@ export const getGroups = async (isActive = null) => {
         link_meet,
         link_whapp,
         link_drive,
-        tutors ( first_name, last_name, email ),
+        tutors ( first_name, last_name ),
         schedule,
         eligible_careers
       `)
@@ -27,7 +28,7 @@ export const getGroups = async (isActive = null) => {
 
     if (error) throw new Error(error.message)
     
-    return data ?? []
+    return adaptGroupsFromAPI(data) ?? []
   } catch (err) {
     // TODO: Quit console.log in production
     console.error('Unexpected error in getGroups:', err)

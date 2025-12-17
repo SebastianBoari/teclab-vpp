@@ -4,6 +4,7 @@ export const adaptTutorFromAPI = (apiTutor) => {
     return {
         id: apiTutor.id,
         createdAt: apiTutor.created_at,
+        name: `${apiTutor.first_name} ${apiTutor.last_name}`,
         firstName: apiTutor.first_name,
         lastName: apiTutor.last_name,
         email: apiTutor.email,
