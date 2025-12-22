@@ -3,12 +3,12 @@ import { getGroups } from '../services/groups.api.js'
 
 const useGroups = (isActive = null) => {
   const { data: groups, isLoading, error } = useQuery({
-    queryKey: ['groups', true],
+    queryKey: ['groups', isActive],
     queryFn: () => getGroups(isActive),
   })
 
-    return {
-    groups,
+  return {
+    groups: groups || [],
     loading: isLoading,
     error
   }

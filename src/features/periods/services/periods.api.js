@@ -1,4 +1,5 @@
 import supabase from '@common/lib/supabase'
+import { adaptPeriodFromAPI } from '@domain/periods/periods.adapters'
 
 export const getPeriod = async () => {
     try{
@@ -10,7 +11,7 @@ export const getPeriod = async () => {
 
         if(error) throw error
 
-        return data
+        return adaptPeriodFromAPI(data)
     } catch (error) {
         console.error('Error fetching periods:', error)
         throw error

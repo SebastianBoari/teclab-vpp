@@ -3,7 +3,6 @@ import CountdownBanner from '../components/CountdownBanner'
 import Button from '@components/Button'
 import ScheduleIcon from '@assets/icons/ScheduleIcon'
 import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
-import { getDaysRemaining } from '@utils/date.utils'
 
 const WelcomeStep = () => {
   const { activePeriod } = useEnrollmentContext()
@@ -13,13 +12,11 @@ const WelcomeStep = () => {
   const handleContinue = () => {
     navigate('/inscripcion/alumno')
   }
-
-  const daysRemaining = activePeriod?.enrollment_close_at ? getDaysRemaining(activePeriod?.enrollment_close_at) : null
   
   return (
     <>
-      {activePeriod && daysRemaining !== null &&(
-        <CountdownBanner daysRemaining={daysRemaining}/>
+      {activePeriod && activePeriod.daysRemaining !== null &&(
+        <CountdownBanner daysRemaining={activePeriod.daysRemaining}/>
       )}
 
       <main className="grow flex flex-col items-center justify-center p-6 text-center">
