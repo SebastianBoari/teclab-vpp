@@ -1,5 +1,5 @@
 import supabase from '@common/lib/supabase'
-import { adaptPeriodFromAPI } from '@domain/periods/periods.adapters'
+import { getDaysRemaining } from '@common/utils/date.utils'
 
 export const getPeriod = async () => {
     try{
@@ -7,11 +7,15 @@ export const getPeriod = async () => {
         .from('periods')
         .select('*')
         .eq('is_active', true)
-        .single()
+        .maybeSingle()
 
         if(error) throw error
+        
+        if(!data) return null
 
-        return adaptPeriodFromAPI(data)
+        data.daysRemaining = getDaysRemaining(data.enrollment_close_at)
+        
+        return data
     } catch (error) {
         console.error('Error fetching periods:', error)
         throw error

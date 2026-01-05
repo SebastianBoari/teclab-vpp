@@ -10,7 +10,7 @@ const GroupItem = ({ studentId, group }) => {
         tutors,
         schedule,
     } = group
-    
+
     return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 flex flex-col gap-4">
         <div className="flex items-start gap-4">

@@ -1,12 +1,12 @@
 import GroupList from './components/GroupList.jsx'
-import useEligibleGroups from './hooks/useEligibleGroups.js'
+import useGroups from './hooks/useGroups.js'
 
 const GroupContainer = ({ studentId, studentCareerId }) => {
-  const { eligibleGroups, loading, error } = useEligibleGroups(studentCareerId)
+  const { groups, loading, error } = useGroups({ isActive: true, studentCareerId })
 
   return (
     <section className="w-full max-w-4xl mx-auto px-4 py-8">
-      <GroupList studentId={studentId} groups={eligibleGroups} />
+      <GroupList studentId={studentId} groups={groups} />
 
       {loading && <p className="text-center text-gray-500">Cargando...</p>}
 

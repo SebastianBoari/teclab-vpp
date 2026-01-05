@@ -37,12 +37,11 @@ export const getEnrollmentByStudent = async (studentId) => {
   }
 }
 
-
 export const getEnrolledGroup = async ({ studentId, periodId }) => {
   if (!studentId || !periodId) return null
 
   try {
-    const { data: enrolledGroup, error } = await supabase
+    const { data, error } = await supabase
       .from('groups')
       .select(`
         *, 
@@ -50,13 +49,14 @@ export const getEnrolledGroup = async ({ studentId, periodId }) => {
       `)
       .eq('period_id', periodId)
       .eq('enrollments.student_id', studentId)
-      .single()
+      .maybeSingle()
 
     if (error) {
-      if (error.code === 'PGRST116') return null
+      console.error('Error en getEnrolledGroup:', error)
       throw error
     }
-    return enrolledGroup
+
+    return data ?? null
   } catch (err) {
     console.error('Unexpected error in getEnrolledGroup:', err)
     throw err

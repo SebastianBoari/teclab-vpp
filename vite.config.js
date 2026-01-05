@@ -18,7 +18,6 @@ export default defineConfig({
     '@': path.resolve(__dirname, './src'),
     '@common': path.resolve(__dirname, './src/common'),
     '@features': path.resolve(__dirname, './src/features'),
-    '@domain': path.resolve(__dirname, './src/domain'),
     '@assets': path.resolve(__dirname, './src/assets'),
     '@utils': path.resolve(__dirname, './src/common/utils'),
     '@components': path.resolve(__dirname, './src/common/components')

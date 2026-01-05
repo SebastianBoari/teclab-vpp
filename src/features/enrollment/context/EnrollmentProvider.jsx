@@ -33,7 +33,10 @@ export const EnrollmentProvider = ({ children }) => {
     )
   }
 
-  if (periodError) notify('error', periodError.message || 'Ha ocurrido un error inesperado.')
+  if (periodError) {
+    notify('error', periodError.message || 'Ha ocurrido un error inesperado.')
+    return null
+  }
 
   return (
     <EnrollmentContext.Provider value={value}>

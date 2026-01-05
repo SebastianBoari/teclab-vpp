@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { getStudentByDni } from '../services/students.api.js'
+import { getStudent } from '../services/students.api.js'
 
 const useStudentByDni = (dni) => {
   return useQuery({
     queryKey: ['student', dni],
-    queryFn: () => getStudentByDni(dni),
+    queryFn: () => getStudent(dni),
     enabled: !!dni,
     retry: 1,                    
     staleTime: 0,                

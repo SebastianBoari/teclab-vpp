@@ -1,7 +1,6 @@
 import supabase from '@common/lib/supabase'
-import { adaptGroupsFromAPI } from '@domain/groups/groups.adapters.js'
 
-export const getGroups = async (isActive = null) => {
+export const getGroups = async ({ isActive = null, studentCareerId = null }) => {
   try {
     let query = supabase
       .from('groups')
@@ -22,15 +21,20 @@ export const getGroups = async (isActive = null) => {
       `)
       .order('created_at', { ascending: true })
 
-    if (isActive !== null) query = query.eq('periods.is_active', isActive)
+    if (isActive !== null) {
+      query = query.eq('periods.is_active', isActive)
+    }
+    
+    if (studentCareerId !== null) {
+      query = query.contains('eligible_careers', [studentCareerId])
+    }
 
     const { data, error } = await query
 
     if (error) throw new Error(error.message)
     
-    return adaptGroupsFromAPI(data) ?? []
+    return data ?? []
   } catch (err) {
-    // TODO: Quit console.log in production
     console.error('Unexpected error in getGroups:', err)
     throw err
   }
