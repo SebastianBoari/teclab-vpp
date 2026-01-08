@@ -1,65 +1,42 @@
-import Header from '@common/layout/Header' 
-import Spinner from '@components/Spinner'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import Header from '@common/layout/Header'
 import { GroupContainer } from '@/features/groups'
 import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
-import { useEnrolledGroup } from '../hooks/useEnrolledGroup'
-import { notify } from '@utils/notify.utils'
 
 const SelectGroup = () => {
-  const { setStudentDni, studentData, setStudentData, activePeriod, setSelectedGroup } = useEnrollmentContext()
-  
-  const { 
-    data: enrolledGroup,
-    error: enrollmentError,
-    isSuccess: isEnrollmentSuccess,
-    isError: isEnrollmentError,
-    isLoading: isEnrollmentLoading
-  } = useEnrolledGroup(studentData?.id, activePeriod?.id)
-
   const navigate = useNavigate()
+  
+  const { studentData, openPeriod, resetFlow } = useEnrollmentContext()
+
+  useEffect(() => {
+    if (!studentData) {
+      navigate('/inscripcion/alumno', { replace: true })
+    }
+  }, [studentData, navigate])
 
   const prevStep = () => {
-    setStudentDni('')
-    setStudentData([])
+    resetFlow()
     navigate('/inscripcion/alumno')
   }
-  
-  useEffect(() => {
-    if (isEnrollmentError) {
-      notify('error', enrollmentError.message || 'Error al verificar inscripción.')
-      navigate('/inscripcion/alumno')
-      return
-    }
 
-    if (isEnrollmentSuccess) {
-      if (enrolledGroup) {
-        setSelectedGroup(enrolledGroup)
-        navigate('/inscripcion/confirmacion')
-      }
-    }
-  }, [
-      isEnrollmentSuccess,
-      enrolledGroup,
-      setSelectedGroup,
-      navigate,
-      enrollmentError,
-      isEnrollmentError,
-      studentData
-  ])
+  if (!studentData) return null
 
   return (
-    <div className="grow">
-      <Header onBack={prevStep} sticky={true} title={'Selección de grupo'}/>
+    <div className="grow flex flex-col">
+      <Header 
+        onBack={prevStep} 
+        sticky={true} 
+        title={'Selección de grupo'}
+      />
       
-      {!isEnrollmentLoading && !enrolledGroup && (
-        <GroupContainer studentId={studentData?.id} studentCareerId={studentData?.career_id}/>
-      )}
-
-      {isEnrollmentLoading && (
-        <Spinner/>
-      )}
+      <main className="w-full max-w-3xl mx-auto p-4 pb-20">
+        <GroupContainer 
+          studentId={studentData.id} 
+          careerId={studentData.career_id}
+          periodId={openPeriod?.id}
+        />
+      </main>
     </div>
   )
 }

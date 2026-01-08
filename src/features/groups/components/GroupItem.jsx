@@ -1,7 +1,7 @@
 import { EnrollmentButton } from '@features/enrollment'
 import { formatDate, formatHours } from '@utils/date.utils'
 
-const GroupItem = ({ studentId, group }) => {
+const GroupItem = ({ group }) => {
     const {
         group_name,
         category,
@@ -70,7 +70,7 @@ const GroupItem = ({ studentId, group }) => {
             </div>
         </div>
 
-        <EnrollmentButton studentId={studentId} group={group}/>
+        <EnrollmentButton group={group}/>
     </div>
   )
 }
