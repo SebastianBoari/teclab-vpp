@@ -1,2 +1,1 @@
-export { default as useStudentByDni } from './hooks/useStudentByDni.js'
-export * from './services/students.api.js'
+export { default as useStudent } from './hooks/useStudent.js'

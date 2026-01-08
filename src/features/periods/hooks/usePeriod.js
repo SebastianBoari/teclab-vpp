@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { getPeriod } from '../services/periods.api.js'
 
-const usePeriod = () => {
+const usePeriod = ({ id, isEnrollmentOpen } = {}) => {
     return useQuery({
-        queryKey: ['period'],
-        queryFn: getPeriod,
+        queryKey: ['period', { id, isEnrollmentOpen }],
+        queryFn: () => getPeriod({ id, isEnrollmentOpen }),
         retry: 1, 
     })
 }

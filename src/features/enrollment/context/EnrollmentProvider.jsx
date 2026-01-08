@@ -3,6 +3,7 @@ import { EnrollmentContext } from './enrollment.context'
 import { usePeriod } from '@/features/periods'
 import Spinner from '@components/Spinner'
 import { notify } from '@utils/notify.utils'
+import { getDaysRemaining } from '@common/utils/date.utils'
 
 export const EnrollmentProvider = ({ children }) => {
   const [studentDni, setStudentDni] = useState('')
@@ -10,20 +11,25 @@ export const EnrollmentProvider = ({ children }) => {
   const [selectedGroup, setSelectedGroup] = useState([])
 
   const { 
-    data: activePeriod, 
+    data: openPeriod, 
     isLoading: isPeriodLoading, 
     error: periodError 
-  } = usePeriod()
+  } = usePeriod({ isEnrollmentOpen: true})
+
+  const daysRemaining = openPeriod 
+    ? getDaysRemaining(openPeriod.enrollment_close_at) 
+    : null
 
   const value = useMemo(() => ({
-    activePeriod, 
+    openPeriod,
+    daysRemaining, 
     studentDni,
     setStudentDni,
     studentData,
     setStudentData,
     selectedGroup,
     setSelectedGroup,
-  }), [activePeriod, studentDni, studentData, selectedGroup])
+  }), [openPeriod, daysRemaining, studentDni, studentData, selectedGroup])
 
   if (isPeriodLoading) {
     return (

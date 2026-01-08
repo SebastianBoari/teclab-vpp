@@ -5,7 +5,7 @@ import ScheduleIcon from '@assets/icons/ScheduleIcon'
 import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
 
 const WelcomeStep = () => {
-  const { activePeriod } = useEnrollmentContext()
+  const { openPeriod, daysRemaining } = useEnrollmentContext()
   
   const navigate = useNavigate()
 
@@ -13,10 +13,18 @@ const WelcomeStep = () => {
     navigate('/inscripcion/alumno')
   }
   
+  const title = openPeriod 
+    ? 'Selección de Grupo de Prácticas' 
+    : 'Portal de Alumnos'
+
+  const description = openPeriod
+    ? 'A continuación, podrás elegir los días y horarios que más te convengan para realizar tus prácticas. Por favor, revisa las opciones cuidadosamente antes de confirmar tu selección.'
+    : 'Ingresa tu DNI para consultar tu inscripción, ver tu grupo asignado y acceder a los enlaces de cursada.'
+    
   return (
     <>
-      {activePeriod && activePeriod.daysRemaining !== null &&(
-        <CountdownBanner daysRemaining={activePeriod.daysRemaining}/>
+      {openPeriod && daysRemaining !== null &&(
+        <CountdownBanner daysRemaining={daysRemaining}/>
       )}
 
       <main className="grow flex flex-col items-center justify-center p-6 text-center">
@@ -35,11 +43,11 @@ const WelcomeStep = () => {
           </h1>
 
           <h2 className="text-lg mb-4">
-            Selección de Grupo de Prácticas
+            {title}
           </h2>
 
           <p className="mb-8">
-            A continuación, podrás elegir los días y horarios que más te convengan para realizar tus prácticas. Por favor, revisa las opciones cuidadosamente antes de confirmar tu selección.
+            {description}
           </p>
 
         </div>

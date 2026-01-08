@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router'
 import Header from '@common/layout/Header'
 import Button from '@components/Button'
 import { useEnrollmentContext } from '../hooks/useEnrollmentContext'
-import { useStudentByDni } from '@/features/students'
+import { useStudent } from '@/features/students'
 import { useEffect } from 'react'
 import { notify } from '@utils/notify.utils'
 import Spinner from '@components/Spinner'
@@ -35,7 +35,7 @@ const StudentStep = () => {
     isSuccess: isStudentSuccess,
     isError: isStudentError, 
     isLoading: isStudentLoading 
-  } = useStudentByDni(studentDni)
+  } = useStudent({dni: studentDni})
 
   useEffect(() => {
     if(isStudentError){
