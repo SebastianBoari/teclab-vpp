@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
-
+import { AuthProvider } from '@features/auth'
 import { WelcomeStep, StudentStep, SelectGroupStep, EnrollmentConfirmation, EnrollmentContainer, EnrollmentGuard } from '@features/enrollment'
 import { AdminContainer, AdminPanel, GroupList, GroupDetails, GroupForm, Session } from '@features/admin'
 import { Login } from '@features/auth'
@@ -27,6 +27,7 @@ const App = () => {
   return (
     <>
         <QueryClientProvider client={queryClient}>
+          <AuthProvider>
             <ReactQueryDevtools />
             
             <Routes>
@@ -60,6 +61,7 @@ const App = () => {
             </Routes>
 
             <Toaster />
+          </AuthProvider>
         </QueryClientProvider>
     </>
   )

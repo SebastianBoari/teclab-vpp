@@ -1,93 +1,55 @@
 import { useState, useMemo, useEffect } from 'react'
 import { AuthContext } from './auth.context'
-import { useSession, useUser } from '../hooks/useAuth'
-import Spinner from '@components/Spinner'
-import { notify } from '@utils/notify.utils'
-import { useNavigate } from 'react-router'
 import supabase from '@common/lib/supabase'
 
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null)
   const [user, setUser] = useState(null)
-  const [isInitializing, setIsInitializing] = useState(true)
-  const navigate = useNavigate()
-
-  const { 
-    data: activeSession, 
-    isLoading: isSessionLoading, 
-    isError: isSessionError, 
-    error: activeSessionError 
-  } = useSession()
-  
-  const { 
-    data: currentUser, 
-    isLoading: isUserLoading, 
-    isError: isUserError,
-    error: userError 
-  } = useUser()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if(!activeSession){
-      setSession(null)
-      setUser(null)
+    let mounted = true
+
+    const getInitialSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (mounted) {
+          if (session) {
+            setSession(session)
+            setUser(session.user)
+          }
+        }
+      } catch (error) {
+        console.error('Error checking auth:', error)
+      } finally {
+        if (mounted) setIsLoading(false)
+      }
     }
-    setSession(activeSession)
-  }, [activeSession])
 
-  useEffect(() => {
-    if(!currentUser) setUser(null)
-    setUser(currentUser)
-  }, [currentUser])
+    getInitialSession()
 
-  useEffect(() => {
-    if (!isSessionLoading && !isUserLoading) {
-      setIsInitializing(false)
-    }
-  }, [isSessionLoading, isUserLoading])
-  
-  useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {   
-        console.log('Auth state changed:', event)
-
-        if (event === 'SIGNED_IN') {
+      (_event, session) => {
+        if (mounted) {
           setSession(session)
-          navigate('/admin')
-        } else if (event === 'SIGNED_OUT') {
-          setSession(null)
-          setUser(null)
-          navigate('/login')
-        } else if (event === 'TOKEN_REFRESHED') {
-          setSession(session)
+          setUser(session?.user ?? null)
+          setIsLoading(false)
         }
       }
     )
 
     return () => {
+      mounted = false
       subscription.unsubscribe()
     }
-  }, [navigate])
+  }, [])
 
   const value = useMemo(() => ({
     session,
     user,
     isAuthenticated: !!session && !!user,
-    isLoading: isSessionLoading || isUserLoading || isInitializing
-  }), [session, user, isSessionLoading, isUserLoading, isInitializing])
-
-  if(isSessionLoading) return <Spinner/>
-
-  if (isSessionError) {
-    notify('error', activeSessionError?.message 
-      ? `Error al obtener la sesión. ${activeSessionError.message}` 
-      : 'Error al obtener la sesión.')
-  }
-
-  if (isUserError) {
-    notify('error', userError?.message 
-      ? `Error al obtener usuario. ${userError.message}` 
-      : 'Error al obtener usuario.')
-  }
+    isLoading
+  }), [session, user, isLoading])
 
   return (
     <AuthContext.Provider value={value}>

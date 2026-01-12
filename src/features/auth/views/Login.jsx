@@ -6,7 +6,8 @@ import * as yup from 'yup'
 import Button from '@components/Button'
 import AlertIcon from '@assets/icons/AlertIcon'
 
-import { useLogin, useSession } from '../hooks/useAuth'
+import { useAuthContext } from '../hooks/useAuthContext'
+import { useLogin } from '../hooks/useAuth'
 import { useNavigate } from 'react-router'
 
 const schema = yup.object({
@@ -22,7 +23,7 @@ const schema = yup.object({
 
 const Login = () => {
   const navigate = useNavigate()
-  const { data: session } = useSession()
+  const { session } = useAuthContext()
   
   const {
     register,
