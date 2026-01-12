@@ -3,7 +3,7 @@ import CalendarIcon from '@assets/icons/CalendarIcon'
 import CheckIcon from '@assets/icons/CheckIcon'
 import WhatsAppIcon from '@assets/icons/WhatsAppIcon'
 import VideoCallIcon from '@assets/icons/VideoCallIcon'
-import { formatHours } from '@utils/date.utils' // Asumo que tienes esta utilidad
+import { formatHours } from '@utils/date.utils'
 
 const GroupDetails = ({ group }) => {
     if (!group) return null
