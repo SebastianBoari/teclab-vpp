@@ -9,7 +9,6 @@ const CountdownBanner = ({ daysRemaining }) => {
     )
   }
   
-  // Closed enrollment status (TODO?)
   if(daysRemaining < 0) return 
   
   const plural = daysRemaining === 1 ? 'día' : 'días'
