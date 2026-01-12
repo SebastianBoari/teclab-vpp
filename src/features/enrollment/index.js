@@ -5,4 +5,5 @@ export { default as EnrollmentConfirmation } from './views/EnrollmentConfirmatio
 export { default as EnrollmentContainer } from './EnrollmentContainer.jsx'
 export { default as EnrollmentButton } from './components/EnrollmentButton.jsx'
 export { default as CountdownBanner } from './components/CountdownBanner.jsx'
+export { default as EnrollmentGuard } from './components/EnrollmentGuard.jsx'
 export * from './services/enrollment.api.js'

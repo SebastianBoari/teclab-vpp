@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
 
-import {WelcomeStep, StudentStep, SelectGroupStep, EnrollmentConfirmation, EnrollmentContainer} from '@features/enrollment'
+import { WelcomeStep, StudentStep, SelectGroupStep, EnrollmentConfirmation, EnrollmentContainer, EnrollmentGuard } from '@features/enrollment'
 import { AdminContainer, AdminPanel, GroupList, GroupDetails, GroupForm, Session } from '@features/admin'
 import { Login } from '@features/auth'
 import NotFoundPage from '@common/pages/NotFoundPage'
@@ -33,8 +33,16 @@ const App = () => {
               <Route path="inscripcion" element={<EnrollmentContainer/>}>
                 <Route index element={<WelcomeStep />} />
                 <Route path="alumno" element={<StudentStep />} />
-                <Route path="grupos" element={<SelectGroupStep />} />
-                <Route path="confirmacion" element={<EnrollmentConfirmation />} />
+                <Route path="grupos" element={
+                  <EnrollmentGuard>
+                    <SelectGroupStep />
+                  </EnrollmentGuard>} 
+                />
+                <Route path="confirmacion" element={
+                  <EnrollmentGuard>
+                    <EnrollmentConfirmation />
+                  </EnrollmentGuard>} 
+                />
               </Route>
               
               <Route path="admin" element={<AdminContainer/>}>

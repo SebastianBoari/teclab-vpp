@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { EnrollmentContext } from './enrollment.context'
 import { usePeriod } from '@/features/periods'
 import { useEnroll } from '../hooks/useEnroll' 
@@ -8,10 +8,12 @@ import { getDaysRemaining } from '@common/utils/date.utils'
 import { notify } from '@common/utils/notify.utils'
 import Spinner from '@common/components/Spinner'
 
+const STORAGE_KEY = 'enrollment_dni'
+
 export const EnrollmentProvider = ({ children }) => {
   const [studentData, setStudentData] = useState(null)
   const [enrolledGroup, setEnrolledGroup] = useState(null) 
-  const [isLoading, setIsLoading] = useState(false) 
+  const [isLoading, setIsLoading] = useState(() => !!sessionStorage.getItem(STORAGE_KEY))
 
   const { 
     data: openPeriod, 
@@ -20,6 +22,30 @@ export const EnrollmentProvider = ({ children }) => {
   } = usePeriod({ isEnrollmentOpen: true })
 
   const { mutateAsync: enrollMutation } = useEnroll()
+
+  useEffect(() => {
+    if (isPeriodLoading) return
+
+    const restoreSession = async () => {
+      const savedDni = sessionStorage.getItem(STORAGE_KEY)
+      
+      if (savedDni && !studentData) {
+        try {
+          await identifyStudent(savedDni)
+        } catch (error) {
+          console.warn('Sesión expirada o inválida', error)
+          sessionStorage.removeItem(STORAGE_KEY)
+          setIsLoading(false) 
+        }
+      } else if (!savedDni) {
+        setIsLoading(false)
+      }
+    }
+
+    restoreSession()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPeriodLoading])
+
 
   const identifyStudent = async (dni) => {
     setIsLoading(true)
@@ -37,6 +63,8 @@ export const EnrollmentProvider = ({ children }) => {
         periodId: openPeriod?.id 
       })
 
+      sessionStorage.setItem(STORAGE_KEY, dni)
+
       if (enrollment) {
         setEnrolledGroup(enrollment.groups) 
         return 'ALREADY_ENROLLED' 
@@ -50,7 +78,12 @@ export const EnrollmentProvider = ({ children }) => {
 
     } catch (error) {
       console.error('[identifyStudent]', error)
-      if (error.message === 'DNI_NOT_FOUND') throw error
+      
+      if (error.message === 'DNI_NOT_FOUND') {
+         sessionStorage.removeItem(STORAGE_KEY)
+         throw error 
+      }
+
       throw new Error('IDENTIFICATION_FAILED') 
     } finally {
       setIsLoading(false)
@@ -83,6 +116,7 @@ export const EnrollmentProvider = ({ children }) => {
     setStudentData(null)
     setEnrolledGroup(null)
     setIsLoading(false)
+    sessionStorage.removeItem(STORAGE_KEY)
   }
 
   const daysRemaining = openPeriod 
