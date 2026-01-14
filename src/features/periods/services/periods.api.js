@@ -52,3 +52,58 @@ export const getPeriods = async ({ isActive } = {}) => {
         throw error
     }
 }
+
+export const createPeriod = async (periodData) => {
+    try {
+        const { data, error } = await supabase
+            .from('periods')
+            .insert(periodData)
+            .select()
+            .single()
+
+        if (error) throw error
+        return data
+    } catch (error) {
+        console.error(`Error en createPeriod: ${error.message}`, periodData)
+        throw error
+    }
+}
+
+export const updatePeriod = async ({ id, ...updates }) => {
+    try {
+        if (!id) throw new Error('ID es requerido para actualizar')
+
+        const { data, error } = await supabase
+            .from('periods')
+            .update(updates)
+            .eq('id', id)
+            .select()
+            .single()
+
+        if (error) throw error
+        return data
+    } catch (error) {
+        console.error(`Error en updatePeriod: ${error.message}. ID: ${id}`, updates)
+        throw error
+    }
+}
+
+export const deletePeriod = async (id) => {
+    try {
+        const { error } = await supabase
+            .from('periods')
+            .delete()
+            .eq('id', id)
+
+        if (error) throw error
+        return true
+    } catch (error) {
+        // 23503: error de FK
+        if (error.code === '23503') {
+            console.warn('Intento de borrar periodo con datos asociados')
+            throw new Error('No se puede eliminar: El periodo tiene grupos o alumnos asociados.')
+        }
+        console.error(`Error en deletePeriod: ${error.message}. ID: ${id}`)
+        throw error
+    }
+}
