@@ -1,2 +1,4 @@
 export { default as usePeriod } from './hooks/usePeriod.js'
 export { default as usePeriods } from './hooks/usePeriods.js'
+export { default as usePeriodMutations } from './hooks/usePeriodMutations.js'
+export { default as PeriodsContainer } from './PeriodsContainer.jsx'

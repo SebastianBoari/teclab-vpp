@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router'
 import { AuthContainer } from '@/features/auth'
-import Navbar from './components/Navbar'
 
 const AdminContainer = () => {
   return (
@@ -8,10 +7,6 @@ const AdminContainer = () => {
       <div className="text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col min-h-screen justify-between p-6">
           <Outlet/>
-
-          <footer>
-             <Navbar/>
-          </footer>
         </div>  
       </div>
     </AuthContainer>

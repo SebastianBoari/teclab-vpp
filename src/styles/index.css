@@ -2,6 +2,8 @@
 
 @theme {
   --color-primary: oklch(0.6011 0.1868 254.5);
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
 }
 
 @font-face {

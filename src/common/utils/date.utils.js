@@ -57,35 +57,6 @@ export const getDaysRemaining = (limitDate) => {
 }
 
 /**
- * Formats an ISO date string to a day/month format.
- *
- * Takes a date string in ISO format (YYYY-MM-DD) and converts it to a
- * human-readable format showing only day and month (DD/MM).
- *
- * @param {string} isoDate - The date in ISO format (e.g., '2025-11-17')
- * @returns {string|undefined} The formatted date as 'DD/MM' or undefined if no date is provided.
- *
- * @example
- * formatDate('2025-11-17')
- * // Returns: '17/11'
- *
- * @example
- * formatDate('2025-01-05')
- * // Returns: '05/01'
- *
- * @example
- * formatDate(null)
- * // Returns: undefined
- */
-export const formatDate = (isoDate) => {
-    if (!isoDate) return
-
-    const [year, month, day] = isoDate.split('-')
-    
-    return `${day}/${month}`
-}
-
-/**
  * Formats a time range string into a more readable format.
  *
  * Takes a string representing a time range with hours separated by a hyphen
@@ -112,4 +83,40 @@ export const formatHours = (hoursString) => {
     const [startHour, endHour] = hoursString.split('-')
 
     return `${startHour} a ${endHour}`
+}
+
+/**
+ * Formats an ISO date string into a readable string.
+ * Default behavior returns 'DD/MM'. Custom options allow any format.
+ * * @param {string} isoDate - The date in ISO format.
+ * @param {Intl.DateTimeFormatOptions} [options] - Optional. Overrides default formatting.
+ * @returns {string|undefined} The formatted date or undefined.
+ * * @example
+ * // Default (Short)
+ * formatDate('2025-01-15T00:00:00') 
+ * // Returns: '15/01'
+ * * @example
+ * // Long format ("15 de enero")
+ * formatDate('2025-01-15T00:00:00', { day: 'numeric', month: 'long' })
+ * // Returns: '15 de enero'
+ * * @example
+ * // Month and Year ("Enero 2025")
+ * formatDate('2025-01-15T00:00:00', { month: 'long', year: 'numeric' })
+ * // Returns: 'enero 2025'
+ */
+export const formatDate = (isoDate, options = null) => {
+    if (!isoDate) return
+
+    const date = new Date(isoDate)
+
+    // Safety check
+    if (isNaN(date.getTime())) return
+
+    // Configuración por defecto (imita tu comportamiento anterior DD/MM)
+    const defaultOptions = {
+        day: '2-digit',
+        month: '2-digit'
+    }
+
+    return new Intl.DateTimeFormat('es-AR', options || defaultOptions).format(date)
 }
