@@ -3,8 +3,15 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from '@features/auth'
-import { WelcomeStep, StudentStep, SelectGroupStep, EnrollmentConfirmation, EnrollmentContainer, EnrollmentGuard } from '@features/enrollment'
-import { PeriodsContainer } from '@features/periods'
+import {
+  WelcomeStep,
+  StudentStep,
+  SelectGroupStep,
+  EnrollmentConfirmation,
+  EnrollmentContainer,
+  EnrollmentGuard,
+} from '@features/enrollment'
+import { PeriodsContainer, CreatePeriod } from '@features/periods'
 import { AdminContainer, AdminPanel } from '@features/admin'
 import { Login } from '@features/auth'
 import NotFoundPage from '@common/pages/NotFoundPage'
@@ -24,42 +31,48 @@ const queryClient = new QueryClient({
 })
 
 const App = () => {
-
   return (
     <>
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <ReactQueryDevtools />
-            
-            <Routes>
-              <Route path="inscripcion" element={<EnrollmentContainer/>}>
-                <Route index element={<WelcomeStep />} />
-                <Route path="alumno" element={<StudentStep />} />
-                <Route path="grupos" element={
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <ReactQueryDevtools />
+
+          <Routes>
+            <Route path="inscripcion" element={<EnrollmentContainer />}>
+              <Route index element={<WelcomeStep />} />
+              <Route path="alumno" element={<StudentStep />} />
+              <Route
+                path="grupos"
+                element={
                   <EnrollmentGuard>
                     <SelectGroupStep />
-                  </EnrollmentGuard>} 
-                />
-                <Route path="confirmacion" element={
+                  </EnrollmentGuard>
+                }
+              />
+              <Route
+                path="confirmacion"
+                element={
                   <EnrollmentGuard>
                     <EnrollmentConfirmation />
-                  </EnrollmentGuard>} 
-                />
-              </Route>
-              
-              <Route path="admin" element={<AdminContainer/>}>
-                <Route index element={<AdminPanel/>}/>
-                <Route path='periodos' element={<PeriodsContainer/>}/>
-              </Route>
-              
-              <Route path='login' element={<Login/>}/>
+                  </EnrollmentGuard>
+                }
+              />
+            </Route>
 
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+            <Route path="admin" element={<AdminContainer />}>
+              <Route index element={<AdminPanel />} />
+              <Route path="periodos" element={<PeriodsContainer />} />
+              <Route path="periodos/crear" element={<CreatePeriod />} />
+            </Route>
 
-            <Toaster />
-          </AuthProvider>
-        </QueryClientProvider>
+            <Route path="login" element={<Login />} />
+
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+
+          <Toaster />
+        </AuthProvider>
+      </QueryClientProvider>
     </>
   )
 }

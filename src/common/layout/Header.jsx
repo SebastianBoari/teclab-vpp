@@ -6,18 +6,10 @@
  * @param {function} [props.onBack] - Function triggered when the back button is clicked.
  * @param {boolean} [props.sticky=false] - Makes the header stick to the top when true.
  */
-const Header = ({
-  title,
-  onBack,
-  sticky = false,
-}) => {
+const Header = ({ title, onBack, sticky = false }) => {
   return (
     <header
-      className={`${
-        sticky
-          ? 'sticky top-0'
-          : ''
-      }
+      className={`${sticky ? 'sticky top-0' : ''}
       bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm z-10`}
     >
       <div className="flex items-center justify-between p-4">
@@ -34,11 +26,7 @@ const Header = ({
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M15 19l-7-7 7-7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
         )}

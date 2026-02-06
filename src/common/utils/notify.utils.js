@@ -19,5 +19,5 @@ import toast from 'react-hot-toast'
  * notify('error', 'Failed to update. Please try again.')
  */
 export const notify = (status, message) => {
-    toast[status](message)
+  toast[status](message)
 }

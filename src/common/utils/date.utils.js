@@ -36,24 +36,28 @@
  * // Returns: null
  */
 export const getDaysRemaining = (limitDate) => {
-    if(!limitDate) return null
+  if (!limitDate) return null
 
-    let daysRemaining = null
+  let daysRemaining = null
 
-    const now = new Date()
-    const closeDate = new Date(limitDate)
-    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    const closeDateStart = new Date(closeDate.getFullYear(), closeDate.getMonth(), closeDate.getDate())
-    const diffTime = closeDateStart - todayStart
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+  const now = new Date()
+  const closeDate = new Date(limitDate)
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  const closeDateStart = new Date(
+    closeDate.getFullYear(),
+    closeDate.getMonth(),
+    closeDate.getDate()
+  )
+  const diffTime = closeDateStart - todayStart
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 
-    if (diffDays === 0) {
-        daysRemaining = now < closeDate ? 0 : -1
-    } else {
-        daysRemaining = diffDays
-    }
+  if (diffDays === 0) {
+    daysRemaining = now < closeDate ? 0 : -1
+  } else {
+    daysRemaining = diffDays
+  }
 
-    return daysRemaining
+  return daysRemaining
 }
 
 /**
@@ -78,11 +82,11 @@ export const getDaysRemaining = (limitDate) => {
  * // Returns: undefined
  */
 export const formatHours = (hoursString) => {
-    if (!hoursString) return
-    
-    const [startHour, endHour] = hoursString.split('-')
+  if (!hoursString) return
 
-    return `${startHour} a ${endHour}`
+  const [startHour, endHour] = hoursString.split('-')
+
+  return `${startHour} a ${endHour}`
 }
 
 /**
@@ -93,7 +97,7 @@ export const formatHours = (hoursString) => {
  * @returns {string|undefined} The formatted date or undefined.
  * * @example
  * // Default (Short)
- * formatDate('2025-01-15T00:00:00') 
+ * formatDate('2025-01-15T00:00:00')
  * // Returns: '15/01'
  * * @example
  * // Long format ("15 de enero")
@@ -105,18 +109,16 @@ export const formatHours = (hoursString) => {
  * // Returns: 'enero 2025'
  */
 export const formatDate = (isoDate, options = null) => {
-    if (!isoDate) return
+  if (!isoDate) return
 
-    const date = new Date(isoDate)
+  const date = new Date(isoDate)
 
-    // Safety check
-    if (isNaN(date.getTime())) return
+  if (isNaN(date.getTime())) return
 
-    // Configuración por defecto (imita tu comportamiento anterior DD/MM)
-    const defaultOptions = {
-        day: '2-digit',
-        month: '2-digit'
-    }
+  const defaultOptions = {
+    day: '2-digit',
+    month: '2-digit',
+  }
 
-    return new Intl.DateTimeFormat('es-AR', options || defaultOptions).format(date)
+  return new Intl.DateTimeFormat('es-AR', options || defaultOptions).format(date)
 }
