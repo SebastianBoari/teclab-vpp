@@ -122,3 +122,16 @@ export const formatDate = (isoDate, options = null) => {
 
   return new Intl.DateTimeFormat('es-AR', options || defaultOptions).format(date)
 }
+
+/**
+ * Formats an ISO date string into YYYY-MM-DD
+ * for <input type="date" />
+ */
+export const formatDateForInput = (isoDate) => {
+  if (!isoDate) return ''
+
+  const date = new Date(isoDate)
+  if (isNaN(date.getTime())) return ''
+
+  return date.toISOString().split('T')[0]
+}

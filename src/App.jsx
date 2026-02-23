@@ -11,7 +11,7 @@ import {
   EnrollmentContainer,
   EnrollmentGuard,
 } from '@features/enrollment'
-import { PeriodsContainer, CreatePeriod } from '@features/periods'
+import { PeriodsContainer, CreatePeriod, EditPeriod } from '@features/periods'
 import { AdminContainer, AdminPanel } from '@features/admin'
 import { Login } from '@features/auth'
 import NotFoundPage from '@common/pages/NotFoundPage'
@@ -63,6 +63,7 @@ const App = () => {
               <Route index element={<AdminPanel />} />
               <Route path="periodos" element={<PeriodsContainer />} />
               <Route path="periodos/crear" element={<CreatePeriod />} />
+              <Route path="periodos/:id" element={<EditPeriod />} />
             </Route>
 
             <Route path="login" element={<Login />} />

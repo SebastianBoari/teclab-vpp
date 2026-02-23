@@ -2,8 +2,15 @@ import CalendarIcon from '@assets/icons/CalendarIcon'
 import DeleteIcon from '@assets/icons/DeleteIcon'
 import EditIcon from '@assets/icons/EditIcon'
 import { formatDate } from '@utils/date.utils'
+import { useNavigate } from 'react-router'
 
-const PeriodItem = ({ period, onEdit, onDelete }) => {
+const PeriodItem = ({ period, onDelete }) => {
+  const navigate = useNavigate()
+
+  const handleEdit = () => {
+    navigate(`/admin/periodos/${period.id}`)
+  }
+
   const { name, start_at, end_at, enrollment_open_at, enrollment_close_at } = period
   const isEnded = new Date(end_at) < new Date()
 
@@ -42,11 +49,11 @@ const PeriodItem = ({ period, onEdit, onDelete }) => {
 
     actionBtn: isEnded
       ? 'text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-      : 'text-primary hover:bg-primary/10',
+      : 'text-primary hover:bg-primary/10 cursor-pointer',
 
     deleteBtn: isEnded
       ? 'text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-      : 'text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20',
+      : 'text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer',
   }
 
   return (
@@ -100,7 +107,7 @@ const PeriodItem = ({ period, onEdit, onDelete }) => {
 
         <div className="flex gap-2">
           <button
-            onClick={() => onEdit(period.id)}
+            onClick={handleEdit}
             className={`p-2 rounded-lg transition-colors ${styles.actionBtn}`}
             title="Editar"
           >
