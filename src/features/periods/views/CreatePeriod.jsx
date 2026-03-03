@@ -66,17 +66,20 @@ const CreatePeriod = () => {
   const { createPeriod } = usePeriodMutations()
 
   const onSubmit = (data) => {
-    const newPeriod = {
-      name: data.name,
-      start_at: data.startDate,
-      end_at: data.endDate,
-      enrollment_open_at: data.inscriptionStart,
-      enrollment_close_at: data.inscriptionEnd,
-    }
-
-    createPeriod.mutate(newPeriod)
-
-    if (createPeriod.isSuccess) handleBack()
+    createPeriod.mutate(
+      {
+        name: data.name,
+        start_at: data.startDate,
+        end_at: data.endDate,
+        enrollment_open_at: data.inscriptionStart,
+        enrollment_close_at: data.inscriptionEnd,
+      },
+      {
+        onSuccess: () => {
+          handleBack()
+        },
+      }
+    )
   }
 
   return (

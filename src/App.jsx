@@ -12,6 +12,7 @@ import {
   EnrollmentGuard,
 } from '@features/enrollment'
 import { PeriodsContainer, CreatePeriod, EditPeriod } from '@features/periods'
+import { CareersContainer, CreateCareer, EditCareer } from '@features/careers'
 import { AdminContainer, AdminPanel } from '@features/admin'
 import { Login } from '@features/auth'
 import NotFoundPage from '@common/pages/NotFoundPage'
@@ -61,9 +62,14 @@ const App = () => {
 
             <Route path="admin" element={<AdminContainer />}>
               <Route index element={<AdminPanel />} />
+
               <Route path="periodos" element={<PeriodsContainer />} />
               <Route path="periodos/crear" element={<CreatePeriod />} />
               <Route path="periodos/:id" element={<EditPeriod />} />
+
+              <Route path="carreras" element={<CareersContainer />} />
+              <Route path="carreras/crear" element={<CreateCareer />} />
+              <Route path="carreras/:id" element={<EditCareer />} />
             </Route>
 
             <Route path="login" element={<Login />} />
