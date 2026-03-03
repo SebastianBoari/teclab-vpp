@@ -13,6 +13,7 @@ import {
 } from '@features/enrollment'
 import { PeriodsContainer, CreatePeriod, EditPeriod } from '@features/periods'
 import { CareersContainer, CreateCareer, EditCareer } from '@features/careers'
+import { TutorsContainer, CreateTutor, EditTutor } from '@features/tutors'
 import { AdminContainer, AdminPanel } from '@features/admin'
 import { Login } from '@features/auth'
 import NotFoundPage from '@common/pages/NotFoundPage'
@@ -70,6 +71,10 @@ const App = () => {
               <Route path="carreras" element={<CareersContainer />} />
               <Route path="carreras/crear" element={<CreateCareer />} />
               <Route path="carreras/:id" element={<EditCareer />} />
+
+              <Route path="tutores" element={<TutorsContainer />} />
+              <Route path="tutores/crear" element={<CreateTutor />} />
+              <Route path="tutores/:id" element={<EditTutor />} />
             </Route>
 
             <Route path="login" element={<Login />} />
