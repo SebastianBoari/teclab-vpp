@@ -22,6 +22,10 @@ const AdminPanel = () => {
     navigate('/admin/tutores')
   }
 
+  const handleStudentsClick = () => {
+    navigate('/admin/alumnos')
+  }
+
   return (
     <section>
       <Header title="Panel de Administración" sticky={true} />
@@ -51,7 +55,10 @@ const AdminPanel = () => {
                 <span className="font-bold text-slate-800 dark:text-white text-sm">Grupos</span>
               </button>
 
-              <button className="flex flex-col items-center justify-center gap-4 bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 hover:scale-[0.98] transition-transform active:bg-slate-50 dark:active:bg-slate-800 aspect-square  cursor-pointer">
+              <button
+                className="flex flex-col items-center justify-center gap-4 bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 hover:scale-[0.98] transition-transform active:bg-slate-50 dark:active:bg-slate-800 aspect-square  cursor-pointer"
+                onClick={handleStudentsClick}
+              >
                 <div className="size-14 rounded-full bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center">
                   <span className="material-symbols-outlined text-orange-600 text-3xl">
                     <StudentIcon />

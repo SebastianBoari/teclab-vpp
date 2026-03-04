@@ -14,6 +14,7 @@ import {
 import { PeriodsContainer, CreatePeriod, EditPeriod } from '@features/periods'
 import { CareersContainer, CreateCareer, EditCareer } from '@features/careers'
 import { TutorsContainer, CreateTutor, EditTutor } from '@features/tutors'
+import { StudentsContainer, CreateStudent, EditStudent } from '@features/students'
 import { AdminContainer, AdminPanel } from '@features/admin'
 import { Login } from '@features/auth'
 import NotFoundPage from '@common/pages/NotFoundPage'
@@ -75,6 +76,10 @@ const App = () => {
               <Route path="tutores" element={<TutorsContainer />} />
               <Route path="tutores/crear" element={<CreateTutor />} />
               <Route path="tutores/:id" element={<EditTutor />} />
+
+              <Route path="alumnos" element={<StudentsContainer />} />
+              <Route path="alumnos/crear" element={<CreateStudent />} />
+              <Route path="alumnos/:id" element={<EditStudent />} />
             </Route>
 
             <Route path="login" element={<Login />} />

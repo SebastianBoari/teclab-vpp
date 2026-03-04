@@ -1,23 +1,48 @@
 import supabase from '@common/lib/supabase'
 
-export const getStudent = async ({ id, dni } = {}) => {
-    try{
-        if (!id && !dni) throw new Error('Se requiere ID o DNI para buscar al estudiante.')
+export const getStudent = async ({ id }) => {
+  const { data, error } = await supabase
+    .from('students')
+    .select('*, careers(name)')
+    .eq('id', id)
+    .single()
+  if (error) throw error
+  return data
+}
 
-        let query = supabase
-            .from('students')
-            .select('*')
+export const getStudents = async () => {
+  const { data, error } = await supabase
+    .from('students')
+    .select('*, careers(name)')
+    .order('last_name')
+  if (error) throw error
+  return data ?? []
+}
 
-            if(id) query = query.eq('id', id)
-            if(dni) query = query.eq('dni', dni)  
-        
-        const { data, error } = await query.maybeSingle()
+export const createStudent = async (studentData) => {
+  const payload = { ...studentData, email: studentData.email || null }
+  const { data, error } = await supabase.from('students').insert(payload).select().single()
+  if (error) throw error
+  return data
+}
 
-        if(error) throw error
+export const updateStudent = async ({ id, ...updates }) => {
+  const payload = { ...updates, email: updates.email || null }
+  const { data, error } = await supabase
+    .from('students')
+    .update(payload)
+    .eq('id', id)
+    .select()
+    .single()
+  if (error) throw error
+  return data
+}
 
-        return data ?? null
-    } catch (error) {
-        console.error(`Error intentando obtener la información del estudiante: ${error}`)
-        throw error
-    }
+export const deleteStudent = async (id) => {
+  const { error } = await supabase.from('students').delete().eq('id', id)
+  if (error) {
+    if (error.code === '23503') throw new Error('El alumno tiene inscripciones o datos asociados.')
+    throw error
+  }
+  return true
 }
