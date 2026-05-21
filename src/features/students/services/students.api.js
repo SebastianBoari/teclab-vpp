@@ -10,13 +10,53 @@ export const getStudent = async ({ id }) => {
   return data
 }
 
-export const getStudents = async () => {
-  const { data, error } = await supabase
+// Legacy getStudents function
+// export const getStudents = async () => {
+//   const { data, error } = await supabase
+//     .from('students')
+//     .select('*, careers(name)')
+//     .order('last_name')
+//   if (error) throw error
+//   return data ?? []
+// }
+
+export const getStudents = async ({ page = 1, pageSize = 10, search = '' }) => {
+  const from = (page - 1) * pageSize
+  const to = from + pageSize - 1
+
+  let query = supabase
     .from('students')
-    .select('*, careers(name)')
-    .order('last_name')
-  if (error) throw error
-  return data ?? []
+    .select('*, careers(name)', { count: 'exact' })
+    .order('last_name', { ascending: true })
+    .range(from, to)
+
+  if (search.trim()) {
+    const words = search
+      .replace(/,/g, ' ')
+      .split(/\s+/)
+      .filter((word) => word.length > 0)
+
+    if (words.length > 0) {
+      words.forEach((word) => {
+        const cleanWord = word.replace(/[%_]/g, '\\$&')
+        query = query.or(
+          `first_name.ilike.%${cleanWord}%,last_name.ilike.%${cleanWord}%,dni.ilike.%${cleanWord}%`
+        )
+      })
+    }
+  }
+
+  const { data, error, count } = await query
+
+  if (error) {
+    console.error('Error en getStudents API:', error.message)
+    throw error
+  }
+
+  return {
+    students: data ?? [],
+    totalCount: count ?? 0,
+  }
 }
 
 export const createStudent = async (studentData) => {

@@ -9,18 +9,15 @@ const __dirname = path.dirname(__filename)
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(), 
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-    '@': path.resolve(__dirname, './src'),
-    '@common': path.resolve(__dirname, './src/common'),
-    '@features': path.resolve(__dirname, './src/features'),
-    '@assets': path.resolve(__dirname, './src/assets'),
-    '@utils': path.resolve(__dirname, './src/common/utils'),
-    '@components': path.resolve(__dirname, './src/common/components')
+      '@': path.resolve(__dirname, './src'),
+      '@common': path.resolve(__dirname, './src/common'),
+      '@features': path.resolve(__dirname, './src/features'),
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@utils': path.resolve(__dirname, './src/common/utils'),
+      '@components': path.resolve(__dirname, './src/common/components'),
     },
   },
 })

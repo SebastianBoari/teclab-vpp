@@ -1,3 +1,3 @@
-# Teclab
+# Sistema Integral de Inscripción (SII Teclab)
 
-#### _Voluntariado Prácticas Profesionalizantes_
+#### Voluntariado Prácticas Profesionalizantes

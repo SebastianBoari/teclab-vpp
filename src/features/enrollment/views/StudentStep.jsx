@@ -28,25 +28,25 @@ const StudentStep = () => {
 
       switch (status) {
         case 'ALREADY_ENROLLED':
-          navigate('/inscripcion/confirmacion') 
+          navigate('/inscripcion/confirmacion')
           break
-          
+
         case 'CAN_ENROLL':
-          navigate('/inscripcion/grupos') 
+          navigate('/inscripcion/grupos')
           break
-          
+
         case 'PERIOD_CLOSED':
           notify('info', 'El periodo de inscripción ha finalizado y no tienes un grupo asignado.')
           break
-          
+
         default:
           console.warn('Estado desconocido:', status)
       }
-
     } catch (error) {
       if (error.message === 'DNI_NOT_FOUND') {
         notify('error', 'El DNI ingresado no corresponde a un alumno registrado.')
       } else {
+        console.log(error.message)
         notify('error', 'Ocurrió un error inesperado. Intente nuevamente.')
       }
     }
@@ -54,13 +54,15 @@ const StudentStep = () => {
 
   return (
     <>
-      <Header onBack={prevStep}/>
+      <Header onBack={prevStep} />
 
-      <form onSubmit={handleSubmit} id="dni-form" className="flex flex-col items-center text-center grow justify-center">
+      <form
+        onSubmit={handleSubmit}
+        id="dni-form"
+        className="flex flex-col items-center text-center grow justify-center"
+      >
         <div className="w-full max-w-sm">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-            Ingresa tu DNI
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Ingresa tu DNI</h1>
 
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             Para continuar, por favor ingresa tu número de documento sin espacios, comas o puntos.
@@ -83,10 +85,10 @@ const StudentStep = () => {
       </form>
 
       <footer className="w-full max-w-sm mx-auto pb-6">
-        <Button 
-          disabled={!isDniValid || isLoading} 
-          message={isLoading ? 'Verificando...' : 'Continuar'} 
-          type={'submit'} 
+        <Button
+          disabled={!isDniValid || isLoading}
+          message={isLoading ? 'Verificando...' : 'Continuar'}
+          type={'submit'}
           form={'dni-form'}
         />
       </footer>
