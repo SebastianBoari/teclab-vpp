@@ -53,14 +53,20 @@ const CreateStudent = () => {
         <div className="grid grid-cols-2 gap-4">
           <label className="flex flex-col">
             <span className="text-sm font-medium pb-2">Nombre</span>
-            <input className="input-style border p-4 rounded-3xl" {...register('first_name')} />
+            <input
+              className="w-full rounded-3xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 h-14 placeholder:text-slate-400 p-4 text-base font-normal leading-normal transition-all"
+              {...register('first_name')}
+            />
             {errors.first_name && (
               <span className="text-red-500 text-xs mt-1">{errors.first_name.message}</span>
             )}
           </label>
           <label className="flex flex-col">
             <span className="text-sm font-medium pb-2">Apellido</span>
-            <input className="input-style border p-4 rounded-3xl" {...register('last_name')} />
+            <input
+              className="w-full rounded-3xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 h-14 placeholder:text-slate-400 p-4 text-base font-normal leading-normal transition-all"
+              {...register('last_name')}
+            />
             {errors.last_name && (
               <span className="text-red-500 text-xs mt-1">{errors.last_name.message}</span>
             )}
@@ -69,14 +75,18 @@ const CreateStudent = () => {
 
         <label className="flex flex-col">
           <span className="text-sm font-medium pb-2">DNI</span>
-          <input className="input-style border p-4 rounded-3xl" type="text" {...register('dni')} />
+          <input
+            className="w-full rounded-3xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 h-14 placeholder:text-slate-400 p-4 text-base font-normal leading-normal transition-all"
+            type="text"
+            {...register('dni')}
+          />
           {errors.dni && <span className="text-red-500 text-xs mt-1">{errors.dni.message}</span>}
         </label>
 
         <label className="flex flex-col">
-          <span className="text-sm font-medium pb-2">Email (Opcional)</span>
+          <span className="text-sm font-medium pb-2">Email</span>
           <input
-            className="input-style border p-4 rounded-3xl"
+            className="w-full rounded-3xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 h-14 placeholder:text-slate-400 p-4 text-base font-normal leading-normal transition-all"
             type="email"
             {...register('email')}
           />
