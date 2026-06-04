@@ -1,10 +1,21 @@
 import supabase from '@common/lib/supabase'
 
-export const getStudent = async ({ id }) => {
+// Legacy getStudents function
+// export const getStudent = async ({ id }) => {
+//   const { data, error } = await supabase
+//     .from('students')
+//     .select('*, careers(name)')
+//     .eq('id', id)
+//     .single()
+//   if (error) throw error
+//   return data
+// }
+
+export const getStudent = async ({ field, value }) => {
   const { data, error } = await supabase
     .from('students')
     .select('*, careers(name)')
-    .eq('id', id)
+    .eq(field, value)
     .single()
   if (error) throw error
   return data

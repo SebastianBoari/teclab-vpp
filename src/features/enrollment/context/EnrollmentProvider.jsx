@@ -2,11 +2,11 @@ import { useState, useMemo, useEffect } from 'react'
 import { EnrollmentContext } from './enrollment.context'
 import { usePeriod } from '@/features/periods'
 import { useEnroll } from '../hooks/useEnroll'
-import { getStudent } from '@/features/students/services/students.api'
 import { getEnrollment } from '../services/enrollment.api'
 import { getDaysRemaining } from '@common/utils/date.utils'
 import { notify } from '@common/utils/notify.utils'
 import Spinner from '@common/components/Spinner'
+import { getStudent } from '../../students/services/students.api'
 
 const STORAGE_KEY = 'enrollment_dni'
 
@@ -49,7 +49,7 @@ export const EnrollmentProvider = ({ children }) => {
   const identifyStudent = async (dni) => {
     setIsLoading(true)
     try {
-      const student = await getStudent({ dni })
+      const student = await getStudent({ field: 'dni', value: dni })
       console.log('Estudiante encontrado:', student)
       if (!student) {
         throw new Error('DNI_NOT_FOUND')
