@@ -14,7 +14,12 @@ import {
 import { PeriodsContainer, CreatePeriod, EditPeriod } from '@features/periods'
 import { CareersContainer, CreateCareer, EditCareer } from '@features/careers'
 import { TutorsContainer, CreateTutor, EditTutor } from '@features/tutors'
-import { StudentsContainer, CreateStudent, EditStudent } from '@features/students'
+import {
+  StudentsContainer,
+  CreateStudent,
+  StudentBulkUpload,
+  EditStudent,
+} from '@features/students'
 import { AdminContainer, AdminPanel, AdminSettings } from '@features/admin'
 import { Login } from '@features/auth'
 import NotFoundPage from '@common/pages/NotFoundPage'
@@ -80,6 +85,7 @@ const App = () => {
 
               <Route path="alumnos" element={<StudentsContainer />} />
               <Route path="alumnos/crear" element={<CreateStudent />} />
+              <Route path="alumnos/importar" element={<StudentBulkUpload />} />
               <Route path="alumnos/:id" element={<EditStudent />} />
             </Route>
 

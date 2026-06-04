@@ -19,7 +19,8 @@ const StudentsContainer = () => {
   const [searchInput, setSearchInput] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
 
-  const handleNavigate = () => navigate('/admin/alumnos/crear')
+  const handleCreateStudentNavigate = () => navigate('/admin/alumnos/crear')
+  const handleBulkUploadNavigate = () => navigate('/admin/alumnos/importar')
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -83,7 +84,7 @@ const StudentsContainer = () => {
             <div className="flex items-center gap-2">
               <button
                 className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-2 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
-                onClick={handleNavigate}
+                onClick={handleCreateStudentNavigate}
                 title="Añadir alumno individual"
               >
                 <AddUserIcon
@@ -95,6 +96,7 @@ const StudentsContainer = () => {
 
               <button
                 className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-2 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                onClick={handleBulkUploadNavigate}
                 title="Carga masiva"
               >
                 <AddPeopleIcon

@@ -86,3 +86,28 @@ export const deleteStudent = async (id) => {
   }
   return true
 }
+
+export const bulkCreateStudents = async (studentsArray) => {
+  const payload = studentsArray.map((student) => ({
+    ...student,
+    email: student.email || null,
+  }))
+
+  const { data, error } = await supabase
+    .from('students')
+    .upsert(payload, {
+      onConflict: 'dni',
+      ignoreDuplicates: true,
+    })
+    .select()
+
+  if (error) throw error
+
+  const insertedDnis = new Set(data.map((s) => s.dni))
+  const duplicatedStudents = studentsArray.filter((s) => !insertedDnis.has(s.dni))
+
+  return {
+    inserted: data,
+    duplicates: duplicatedStudents,
+  }
+}

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { getCareers } from '../services/careers.api.js'
 
-const usePeriods = () => {
+const useCareers = () => {
   return useQuery({
     queryKey: ['careers'],
     queryFn: () => getCareers(),
@@ -10,4 +10,4 @@ const usePeriods = () => {
   })
 }
 
-export default usePeriods
+export default useCareers
