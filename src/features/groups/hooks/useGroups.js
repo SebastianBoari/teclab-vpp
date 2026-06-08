@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import { getGroups } from '../services/groups.api.js'
 
-const useGroups = ({ periodId, careerId } = {}) => {
+const useGroups = (filters = {}, options = {}) => {
   return useQuery({
-    queryKey: ['groups', { periodId, careerId }],
-    queryFn: () => getGroups({ periodId, careerId }),
-    enabled: !!periodId, 
+    queryKey: ['groups', filters],
+    queryFn: () => getGroups(filters),
     staleTime: 0,
-    refetchOnWindowFocus: true
+    refetchOnWindowFocus: true,
+    ...options,
   })
 }
 

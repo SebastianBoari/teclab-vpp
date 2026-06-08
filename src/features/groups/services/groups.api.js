@@ -1,26 +1,34 @@
 import supabase from '@common/lib/supabase'
 
-export const getGroups = async ({ periodId, careerId } = {}) => {
+export const getGroups = async (filters = {}) => {
+  const { periodId, careerId } = filters
+
   try {
     let query = supabase
       .from('groups')
-      .select(`
+      .select(
+        `
         *,
         tutors ( first_name, last_name ),
         periods!inner ( id, name, start_at, end_at ),
         enrollments ( count )
-      `)
+      `
+      )
       .order('created_at', { ascending: true })
 
-    if (periodId) query = query.eq('period_id', periodId)
-    if (careerId) query = query.contains('eligible_careers', [careerId])
+    if (periodId) {
+      query = query.eq('period_id', periodId)
+    }
+
+    if (careerId) {
+      query = query.contains('eligible_careers', [careerId])
+    }
 
     const { data, error } = await query
 
     if (error) throw error
-    
-    return data?.map(normalizeGroup) ?? []
 
+    return data?.map(normalizeGroup) ?? []
   } catch (error) {
     console.error('[getGroups]', error)
     throw error
@@ -33,16 +41,18 @@ export const getGroup = async ({ id } = {}) => {
 
     const { data, error } = await supabase
       .from('groups')
-      .select(`
+      .select(
+        `
         *,
         tutors ( first_name, last_name ),
         periods ( name, start_at, end_at )
-      `)
+      `
+      )
       .eq('id', id)
       .maybeSingle()
 
     if (error) throw error
-    
+
     return data ?? null
   } catch (error) {
     console.error('[getGroup]', error)
@@ -55,6 +65,6 @@ const normalizeGroup = (group) => {
   return {
     ...group,
     enrolled_count: enrolledCount,
-    enrollments: undefined, 
+    enrollments: undefined,
   }
 }

@@ -20,6 +20,7 @@ import {
   StudentBulkUpload,
   EditStudent,
 } from '@features/students'
+import { GroupsContainer } from '@features/groups'
 import { AdminContainer, AdminPanel, AdminSettings } from '@features/admin'
 import { Login } from '@features/auth'
 import NotFoundPage from '@common/pages/NotFoundPage'
@@ -87,6 +88,8 @@ const App = () => {
               <Route path="alumnos/crear" element={<CreateStudent />} />
               <Route path="alumnos/importar" element={<StudentBulkUpload />} />
               <Route path="alumnos/:id" element={<EditStudent />} />
+
+              <Route path="grupos" element={<GroupsContainer />} />
             </Route>
 
             <Route path="login" element={<Login />} />

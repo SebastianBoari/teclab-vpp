@@ -2,12 +2,12 @@ import GroupList from './components/GroupList.jsx'
 import useGroups from './hooks/useGroups.js'
 import Spinner from '@common/components/Spinner'
 
-const GroupContainer = ({ careerId, periodId }) => {
-  const { 
-    data: groups, 
-    isLoading, 
-    error 
-  } = useGroups({ periodId, careerId })
+const GroupsContainer = ({
+  filters = {},
+  emptyMessage = 'No se encontraron grupos.',
+  renderAction,
+}) => {
+  const { data: groups, isLoading, error } = useGroups(filters)
 
   if (isLoading) {
     return (
@@ -21,7 +21,9 @@ const GroupContainer = ({ careerId, periodId }) => {
     return (
       <div className="text-center py-10 text-red-500">
         <p>No se pudieron cargar los grupos.</p>
-        <button onClick={() => window.location.reload()} className="underline mt-2">Reintentar</button>
+        <button onClick={() => window.location.reload()} className="underline mt-2">
+          Reintentar
+        </button>
       </div>
     )
   }
@@ -29,16 +31,16 @@ const GroupContainer = ({ careerId, periodId }) => {
   if (!groups || groups.length === 0) {
     return (
       <div className="text-center py-10 text-gray-500">
-        <p>No hay grupos disponibles para tu carrera en este periodo.</p>
+        <p>{emptyMessage}</p>
       </div>
     )
   }
 
   return (
     <section className="w-full">
-      <GroupList groups={groups} />
+      <GroupList groups={groups} renderAction={renderAction} />
     </section>
   )
 }
 
-export default GroupContainer
+export default GroupsContainer
