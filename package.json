@@ -15,7 +15,9 @@
     "db:create-admin": "node supabase/scripts/create-local-admin.mjs",
     "db:pull:schema": "supabase db dump --schema public -f supabase/schema.sql",
     "db:pull:data": "supabase db dump --data-only --schema public -f supabase/seed.sql",
-    "db:reset-local": "pnpm db:reset && pnpm db:create-admin"
+    "db:reset-local": "pnpm db:reset && pnpm db:create-admin",
+    "dev:local": "vite --mode localdev",
+    "dev:cloud": "vite --mode clouddev"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
